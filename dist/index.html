@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Weather App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"><script defer src="index.bundle.js"></script></head>
+  <body>
+  <div class="container">
+      
+  <div class="header">My Weather</div>
+
+    <div class="searchContainer">
+      <div class="dropdownMenu">
+      <button class="dropbtn">Search By</button>
+      <div id="drop" class="dropdown-content">
+        <a id="zipcode" href="#">Zip Code</a>
+        <a id="city" href="#">City</a>
+      </div>
+    </div>
+  
+      <input type="text" name="Search" id="search">
+      <button class="confirm">Submit</button>
+    </div>
+
+  <div id="display">
+    <div id="location"></div>
+    <div id="tempDisplay"></div>
+  </div>
+
+  <div class="conditions">
+    <div class="windDisplay"></div>
+    <div class="humidity"></div>
+  </div>
+  <div class="forecastContainer">
+  <div class="forecastTitle">5-Day Forecast</div>
+  <div id="forecast">
+    <div class="day" id="day1">
+    <div class="high"></div>
+    <div class="low"></div>
+  </div>
+    <div class="day" id="day2">
+    <div class="high"></div>
+    <div class="low"></div>
+  </div>
+    <div class="day" id="day3">
+    <div class="high"></div>
+    <div class="low"></div>
+  </div>
+    <div class="day" id="day4">
+    <div class="high"></div>
+    <div class="low"></div>
+  </div>
+    <div class="day" id="day5">
+    <div class="high"></div>
+    <div class="low"></div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </body>
+</html>
