@@ -15,10 +15,38 @@ class Ship {
 
 
 class Gameboard {
-  
+    constructor(coordinates) {
+      this.coordinates = coordinates;
+    }
+    placeShip(name, length, coord){ 
+     name =  new Ship
+     name.length = length
+
+    }
+    missedAttack(coord) {
+      coord = missedArray.push
+    }
+    recieveAttack(coord){
+      if (coord != ship.coord) {
+        this.missedAttack(coord)
+      } else if (coord == ship.coord) {
+        Ship.numberHits()
+      }
+        
+    }
+    allSunk(){
+      
+    }
 }
 
-
+class Player {
+  constructor(name) {
+    this.name = name;
+  }
+  constructor(turn) {
+    this.turn = turn;
+  }
+}
 
 
 
