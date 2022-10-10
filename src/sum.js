@@ -20,23 +20,33 @@ class Ship {
 
 
 class Gameboard {
-    constructor(coordinates) {
-      this.coordinates = coordinates;
+    constructor(name, destroyer, cruiser, submarine, battleship, carrier) {
+      this.name = name;
+      this.destroyer = destroyer
+      this.cruiser = cruiser
+      this.submarine = submarine
+      this.battleship = battleship
+      this.carrier = carrier
     }
 
-
+    createBoard(){
+      let playerBoard = board;
+      return playerBoard;
+      } 
     placeShip(name, length, coord){ 
      name =  new Ship;
      name.length = length;
      name.hits = 0;
      name.coord = coord
+     name = this.name
     return name;
     }
     missedAttack(coord) {
-      coord = missedArray.push
+     // coord = missedArray.push
     }
     recieveAttack(coord){
-      if (coord != ship.coord) {
+      console.log(this.cruiser)
+      if (coord != this.name) {
         this.missedAttack(coord)
       } else if (coord == ship.coord) {
         Ship.numberHits()
@@ -51,17 +61,18 @@ class Gameboard {
 class Player {
   constructor(name) {
     this.name = name;
+    this.cruiserArr = [];
   }
-  createBoard(){
-  let playerBoard = board;
-  return playerBoard;
-  } 
+ playerBoard(boardName) {
+  let newBoard = new Gameboard
+  newBoard.name = boardName
+  return newBoard;
+ }
   createShip() {
     if (this.name = "AI") {
 
     }
   }
- 
 }
 const board = ['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8', 'A9', 'A10',
                'B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8', 'B9', 'B10',
@@ -74,18 +85,27 @@ const board = ['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8', 'A9', 'A10',
                'I1', 'I2', 'I3', 'I4', 'I5', 'I6', 'I7', 'I8', 'I9', 'I10',
                'J1', 'J2', 'J3', 'J4', 'J5', 'J6', 'J7', 'J8', 'J9', 'J10']
 // console.log(board);
-let player1Board = new Gameboard
+
 let shipArr = ['A1', 'A2', 'A3'];
-let cruiser = player1Board.placeShip('Cruiser', 3, shipArr);
-console.log(cruiser);
-const player1 = new Player
-player1.name = 'player2'
-let board1 = player1.createBoard()
-console.log(typeof(cruiser.coord))
+// let cruiser = player1Board.placeShip('Cruiser', 3, shipArr);
+// console.log(cruiser);
 
 
-
-
+  const player1 = new Player
+  player1.name = 'player2'
+  player1.cruiserArr = [1,2,4]
+  let player1Board = player1.playerBoard('player2');
+  let cruiserArr = ['A1','A2','A3']
+  let subArr = ['B1','B2','B3']
+  let cruiser = player1Board.placeShip('Cruiser', 3, cruiserArr)
+  let sub = player1Board.placeShip('Sub', 3, subArr)
+  console.log(sub)
+ let guess = 'A1'
+ player1Board.recieveAttack(guess, sub)
+ console.log(player1Board.cruiser)
+  // player1Board.cruiserArr = cruiserArr
+  
+  
 
 
 
