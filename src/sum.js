@@ -6,16 +6,18 @@ class Ship {
     this.hits = hits
   }
   coord = [];
+  isSunk(){
+    console.log('sunk');
+  }
   numberHits() {
     let totalPoints = this.length;
     this.hits++
     if (this.hits == totalPoints) {
-      isSunk();
+      console.log('sunk')
+      cruiser.isSunk();
     }
   }
-  isSunk(){
-    console.log('sunk');
-  }
+ 
 }
 
 
@@ -29,6 +31,16 @@ class Gameboard {
       this.carrier = carrier
     }
 
+    get destroyer() {
+      return this._destroyer;
+    }
+    
+
+    set destroyer(ship) {
+      this._destroyer = ship
+    }
+
+
     createBoard(){
       let playerBoard = board;
       return playerBoard;
@@ -38,23 +50,24 @@ class Gameboard {
      name.length = length;
      name.hits = 0;
      name.coord = coord
-     name = this.name
+     console.log(name)
     return name;
     }
     missedAttack(coord) {
      // coord = missedArray.push
     }
-    recieveAttack(coord){
-      console.log(this.cruiser)
-      if (coord != this.name) {
+
+    recieveAttack(cruiser, coord){
+      console.log(cruiser)
+      console.log(coord)
+      if (cruiser.coord.includes(coord)) {
+        cruiser.numberHits()
+      } else if (guessBoard.includes(coord)) {
         this.missedAttack(coord)
-      } else if (coord == ship.coord) {
-        Ship.numberHits()
-      }
-        
-    }
+      } else console.log('error');
+  }
     allSunk(){
-      
+      console.log('sunk')
     }
 }
 
@@ -68,10 +81,9 @@ class Player {
   newBoard.name = boardName
   return newBoard;
  }
-  createShip() {
-    if (this.name = "AI") {
+  createCruiser(coord) {
 
-    }
+
   }
 }
 const board = ['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8', 'A9', 'A10',
@@ -87,24 +99,27 @@ const board = ['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8', 'A9', 'A10',
 // console.log(board);
 
 let shipArr = ['A1', 'A2', 'A3'];
-// let cruiser = player1Board.placeShip('Cruiser', 3, shipArr);
-// console.log(cruiser);
 
 
   const player1 = new Player
-  player1.name = 'player2'
-  player1.cruiserArr = [1,2,4]
-  let player1Board = player1.playerBoard('player2');
-  let cruiserArr = ['A1','A2','A3']
-  let subArr = ['B1','B2','B3']
-  let cruiser = player1Board.placeShip('Cruiser', 3, cruiserArr)
-  let sub = player1Board.placeShip('Sub', 3, subArr)
-  console.log(sub)
- let guess = 'A1'
- player1Board.recieveAttack(guess, sub)
- console.log(player1Board.cruiser)
-  // player1Board.cruiserArr = cruiserArr
   
+  player1.name = 'plaeyr'
+  player1.cruiserArr = ['A1','A2','A3']
+  console.log(player1)
+  let player1Board = player1.playerBoard('firstboard');
+ // let subArr = ['B1','B2','B3']
+ let guessBoard = player1Board.createBoard();
+ //console.log(guessBoard)
+  let cruiser = player1Board.placeShip('Cruiser', 3, player1.cruiserArr)
+ // let sub = player1Board.placeShip('Sub', 3, subArr)
+  console.log(cruiser)
+ let guess = 'A1'
+ let guess2 = 'A2'
+ let guess3 = 'A3'
+ player1Board.recieveAttack(cruiser, guess)
+ player1Board.recieveAttack(cruiser, guess2)
+ player1Board.recieveAttack(cruiser, guess3)
+ 
   
 
 
