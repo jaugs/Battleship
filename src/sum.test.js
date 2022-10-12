@@ -1,9 +1,9 @@
 
 
-const player = require('./sum');
+const gameLogic = require('./sum');
 
-test('works', () => {
-  expect(player('three', 1)).toBe('uisff');
+test('sinks', () => {
+  expect(gameLogic()).toBe('sunk');
 });
 
 
