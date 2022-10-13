@@ -2,8 +2,8 @@
 
 const gameLogic = require('./sum');
 
-test('sinks', () => {
-  expect(gameLogic()).toBe('sunk');
+test('can make hit', () => {
+  expect(gameLogic('A1')).toBe('hit');
 });
 
 

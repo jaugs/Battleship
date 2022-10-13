@@ -30,6 +30,16 @@ class Gameboard {
     constructor(name) {
       this.name = name;
       this.fleet = []
+      this.guessBoard = ['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8', 'A9', 'A10',
+                         'B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8', 'B9', 'B10',
+                         'C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7', 'C8', 'C9', 'C10',
+                         'D1', 'D2', 'D3', 'D4', 'D5', 'D6', 'D7', 'D8', 'D9', 'D10',
+                         'E1', 'E2', 'E3', 'E4', 'E5', 'E6', 'E7', 'E8', 'E9', 'E10',
+                         'F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 'F9', 'F10',
+                         'G1', 'G2', 'G3', 'G4', 'G5', 'G6', 'G7', 'G8', 'G9', 'G10',
+                         'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'H7', 'H8', 'H9', 'H10',
+                         'I1', 'I2', 'I3', 'I4', 'I5', 'I6', 'I7', 'I8', 'I9', 'I10',
+                         'J1', 'J2', 'J3', 'J4', 'J5', 'J6', 'J7', 'J8', 'J9', 'J10'];
     }
 
     get getDestroyer() {
@@ -78,17 +88,27 @@ class Gameboard {
      // coord = missedArray.push
     }
 
-    recieveAttack(coord){
+    recieveAttack(guess){
       console.log(this)
-      forEach(Ship in this)
+      for (let i = 0; i < this.fleet.length; i++) {
+        if (this.fleet[i].coord.includes(guess)) {
+          let result = 'hit'
+          console.log('dd')
+          return result
+        } else {
+          console.log(this.fleet[i].coord)
+          return result = 'miss'
+        }
+        
+      }
+      console.log('here')
 
-
-      console.log(player1Board)
-      if (player1Board.cruiser.coord.includes(coord)) {
-        player1Board.cruiser.numberHits()
-      } else if (guessBoard.includes(coord)) {
-        this.missedAttack(coord)
-      } else console.log('error');
+     
+      
+      //   player1Board.cruiser.numberHits()
+      // } else if (guessBoard.includes(coord)) {
+      //   this.missedAttack(coord)
+      // } else console.log('error');
   }
     allSunk(){
       console.log('sunk')
@@ -110,7 +130,7 @@ class Player {
   return newBoard;
  }
 }
-const board = ['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8', 'A9', 'A10',
+const board1 = ['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8', 'A9', 'A10',
                'B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8', 'B9', 'B10',
                'C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7', 'C8', 'C9', 'C10',
                'D1', 'D2', 'D3', 'D4', 'D5', 'D6', 'D7', 'D8', 'D9', 'D10',
@@ -143,13 +163,14 @@ function gameLogic(guess){
  let guess2 = 'A2'
  let guess3 = 'A3'
 // player1Board s
- player1Board.recieveAttack(guess)
+ let result = player1Board.recieveAttack(guess)
+ return result
 // player1Board.recieveAttack(guess2)
 // player1Board.recieveAttack(guess3)
 }
 
-gameLogic('A1');
-
+let result = gameLogic('A1');
+console.log(result)
 module.exports = gameLogic;
 
 
