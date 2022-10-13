@@ -1,4 +1,5 @@
 console.log('hello')
+import './style.css';
 
 class Ship {
   constructor(name, length, hits) {
@@ -85,6 +86,7 @@ class Gameboard {
     return ship;
     }
     missedAttack(coord) {
+      console.log(this.guessBoard)
      // coord = missedArray.push
     }
 
@@ -93,11 +95,20 @@ class Gameboard {
       for (let i = 0; i < this.fleet.length; i++) {
         if (this.fleet[i].coord.includes(guess)) {
           let result = 'hit'
-          console.log('dd')
+          this.fleet[i].numberHits()
+          console.log(this.guessBoard)
           return result
         } else {
+          for (let k = 0; k < this.guessBoard.length; k++) {
+            if (this.guessBoard[k].includes(guess)) {
+              console.log('hjere');
+              this.missedAttack(guess)
+              return 'miss'
+            }
+          }
           console.log(this.fleet[i].coord)
-          return result = 'miss'
+          let result = 'miss';
+          return result
         }
         
       }
@@ -169,12 +180,21 @@ function gameLogic(guess){
 // player1Board.recieveAttack(guess3)
 }
 
-let result = gameLogic('A1');
-console.log(result)
+let newResult = gameLogic('F1');
+console.log(newResult)
 module.exports = gameLogic;
 
-
-
+function generateDisplayBoard() {
+  const container = document.getElementById('container');
+  for (let i=1; i<11; i++) {
+    let cell = document.createElement('div');
+    cell.setAttribute('class', 'cell');
+    cell.setAttribute('id', `A${i}`);
+    container.appendChild(cell);
+    
+  }
+}
+generateDisplayBoard();
 
 
 
