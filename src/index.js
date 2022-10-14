@@ -1,6 +1,6 @@
-console.log('hello')
-import './style.css';
-
+console.log('dfdf')
+// import './style.css';
+// let constantee = document.querySelector('.container')
 class Ship {
   constructor(name, length, hits) {
     this.name = name;
@@ -18,8 +18,9 @@ class Ship {
     return sunk
   }
   numberHits() {
-    
-    this.hits++
+    console.log(this)
+    this.hits = this.hits + 1
+    console.log(this.hits);
     this.isSunk()
     
   }
@@ -86,17 +87,22 @@ class Gameboard {
     return ship;
     }
     missedAttack(coord) {
-      console.log(this.guessBoard)
-     // coord = missedArray.push
+        let guessCoord = this.guessBoard.indexOf(coord);
+        if (~guessCoord) {
+          this.guessBoard[guessCoord] = 'miss'
+          console.log(this.guessBoard)
+        }
+       
+  
     }
 
     recieveAttack(guess){
-      console.log(this)
+      //console.log(this)
       for (let i = 0; i < this.fleet.length; i++) {
         if (this.fleet[i].coord.includes(guess)) {
           let result = 'hit'
           this.fleet[i].numberHits()
-          console.log(this.guessBoard)
+          // console.log(this.guessBoard)
           return result
         } else {
           for (let k = 0; k < this.guessBoard.length; k++) {
@@ -109,26 +115,17 @@ class Gameboard {
           console.log(this.fleet[i].coord)
           let result = 'miss';
           return result
-        }
-        
-      }
-      console.log('here')
+    }}}
 
-     
-      
-      //   player1Board.cruiser.numberHits()
-      // } else if (guessBoard.includes(coord)) {
-      //   this.missedAttack(coord)
-      // } else console.log('error');
-  }
     allSunk(){
       console.log('sunk')
     }
 }
 
 class Player {
-  constructor(name) {
+  constructor(name, board) {
     this.name = name;
+    this.board = board
     this.cruiserArr = [];
     this.destroyerArr = [];
     this.submarineArr = [];
@@ -138,6 +135,8 @@ class Player {
  createBoard(boardName) {
   let newBoard = new Gameboard
   newBoard.name = boardName
+  this.board = newBoard;
+  console.log(this.board)
   return newBoard;
  }
 }
@@ -163,35 +162,84 @@ function gameLogic(guess){
   player1.submarineArr = ['E1','E2','E3']
   let player1Board = player1.createBoard('firstboard');
   // player1Board.fleet = 'fleet1';
-  console.log(player1Board)
+  // console.log(player1Board)
  player1Board.setCruiser = player1Board.placeShip('Cruiser', 3, player1.cruiserArr)
  player1Board.setDestroyer = player1Board.placeShip('Destroyer', 3, player1.destroyerArr)
  player1Board.setSubmarine = player1Board.placeShip('Submarine', 3, player1.submarineArr)
  player1Board.setBattleship = player1Board.placeShip('Battleship', 3, player1.battleshipArr)
  player1Board.setCarrier = player1Board.placeShip('Carrier', 3, player1.carrierArr)
- console.log(player1Board.fleet)
- //let guess = 'A1'
- let guess2 = 'A2'
- let guess3 = 'A3'
-// player1Board s
- let result = player1Board.recieveAttack(guess)
- return result
-// player1Board.recieveAttack(guess2)
-// player1Board.recieveAttack(guess3)
+ return player1
 }
 
-let newResult = gameLogic('F1');
+function fakeGame(guess, board){
+
+ let guess2 = 'A2'
+ let guess3 = 'A3'
+ let result = board.recieveAttack(guess)
+ console.log(board.fleet)
+
+ return result
+}
+let player = gameLogic();
+console.log(player)
+
+let newResult = fakeGame('A1', player.board);
+let newResult2 = fakeGame('A2');
+let newResult3 = fakeGame('A3');
 console.log(newResult)
-module.exports = gameLogic;
+console.log(newResult2)
+console.log(newResult3)
+// module.exports = gameLogic;
+
+
+
+
+
 
 function generateDisplayBoard() {
-  const container = document.getElementById('container');
+  const shipBoard = document.getElementById('shipBoard');
+  console.log(container);
   for (let i=1; i<11; i++) {
-    let cell = document.createElement('div');
-    cell.setAttribute('class', 'cell');
-    cell.setAttribute('id', `A${i}`);
-    container.appendChild(cell);
-    
+    let cellA = document.createElement('div');
+    cellA.setAttribute('class', 'cell');
+    cellA.setAttribute('id', `A${i}`);
+    let cellB = document.createElement('div');
+    cellB.setAttribute('class', 'cell');
+    cellB.setAttribute('id', `B${i}`);
+    let cellC = document.createElement('div');
+    cellC.setAttribute('class', 'cell');
+    cellC.setAttribute('id', `C${i}`);
+    let cellD = document.createElement('div');
+    cellD.setAttribute('class', 'cell');
+    cellD.setAttribute('id', `D${i}`);
+    let cellE = document.createElement('div');
+    cellE.setAttribute('class', 'cell');
+    cellE.setAttribute('id', `E${i}`);
+    let cellF = document.createElement('div');
+    cellF.setAttribute('class', 'cell');
+    cellF.setAttribute('id', `F${i}`);
+    let cellG = document.createElement('div');
+    cellG.setAttribute('class', 'cell');
+    cellG.setAttribute('id', `G${i}`);
+    let cellH = document.createElement('div');
+    cellH.setAttribute('class', 'cell');
+    cellH.setAttribute('id', `H${i}`);
+    let cellI = document.createElement('div');
+    cellI.setAttribute('class', 'cell');
+    cellI.setAttribute('id', `I${i}`);
+    let cellJ = document.createElement('div');
+    cellJ.setAttribute('class', 'cell');
+    cellJ.setAttribute('id', `J${i}`);
+    shipBoard.appendChild(cellA);
+    shipBoard.appendChild(cellB);
+    shipBoard.appendChild(cellC);
+    shipBoard.appendChild(cellD);
+    shipBoard.appendChild(cellE);
+    shipBoard.appendChild(cellF);
+    shipBoard.appendChild(cellG);
+    shipBoard.appendChild(cellH);
+    shipBoard.appendChild(cellI);
+    shipBoard.appendChild(cellJ);
   }
 }
 generateDisplayBoard();
