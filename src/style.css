@@ -2,10 +2,30 @@ body {
   background-color: #0c4a6e;
 }
 
-#shipBoard {
+#container {
+  display: grid;
+  grid-template-areas: 
+    "s a"
+    "s b";
+}
+
+.sidebar {
+  grid-area: s;
+}
+
+#attackBoard {
+  grid-area: a;
+}
+
+#attackBoard {
+  grid-area: b;
+}
+
+.shipBoard {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    padding: 10px;
 }
 
 .cell {

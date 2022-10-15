@@ -1,5 +1,5 @@
 console.log('dfdf')
-// import './style.css';
+ import './style.css';
 // let constantee = document.querySelector('.container')
 class Ship {
   constructor(name, length, hits) {
@@ -33,16 +33,16 @@ class Gameboard {
     constructor(name) {
       this.name = name;
       this.fleet = []
-      this.guessBoard = ['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8', 'A9', 'A10',
-                         'B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8', 'B9', 'B10',
-                         'C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7', 'C8', 'C9', 'C10',
-                         'D1', 'D2', 'D3', 'D4', 'D5', 'D6', 'D7', 'D8', 'D9', 'D10',
-                         'E1', 'E2', 'E3', 'E4', 'E5', 'E6', 'E7', 'E8', 'E9', 'E10',
-                         'F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 'F9', 'F10',
-                         'G1', 'G2', 'G3', 'G4', 'G5', 'G6', 'G7', 'G8', 'G9', 'G10',
-                         'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'H7', 'H8', 'H9', 'H10',
-                         'I1', 'I2', 'I3', 'I4', 'I5', 'I6', 'I7', 'I8', 'I9', 'I10',
-                         'J1', 'J2', 'J3', 'J4', 'J5', 'J6', 'J7', 'J8', 'J9', 'J10'];
+      this.guessBoard = ['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8', 'A9', 'A0',
+                         'B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8', 'B9', 'B0',
+                         'C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7', 'C8', 'C9', 'C0',
+                         'D1', 'D2', 'D3', 'D4', 'D5', 'D6', 'D7', 'D8', 'D9', 'D0',
+                         'E1', 'E2', 'E3', 'E4', 'E5', 'E6', 'E7', 'E8', 'E9', 'E0',
+                         'F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 'F9', 'F0',
+                         'G1', 'G2', 'G3', 'G4', 'G5', 'G6', 'G7', 'G8', 'G9', 'G0',
+                         'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'H7', 'H8', 'H9', 'H0',
+                         'I1', 'I2', 'I3', 'I4', 'I5', 'I6', 'I7', 'I8', 'I9', 'I0',
+                         'J1', 'J2', 'J3', 'J4', 'J5', 'J6', 'J7', 'J8', 'J9', 'J0'];
     }
 
     get getDestroyer() {
@@ -91,7 +91,7 @@ class Gameboard {
         let guessCoord = this.guessBoard.indexOf(coord);
         if (~guessCoord) {
           this.guessBoard[guessCoord] = 'miss'
-         // console.log(this.guessBoard)
+          console.log(this.guessBoard)
         }
        
   
@@ -100,27 +100,24 @@ class Gameboard {
     recieveAttack(guess){
       //console.log(this)
       for (let i = 0; i < this.fleet.length; i++) {
-       // console.log(i)
-        // console.log(this.fleet[i].coord);
         if (this.fleet[i].coord.includes(guess)) {
-         
           let result = 'hit'
           console.log(result)
           this.fleet[i].numberHits()
-          
           return result
-        } else {
-          for (let k = 0; k < this.guessBoard.length; k++) {
-            if (this.guessBoard[k].includes(guess)) {
-              console.log('hjere');
+        }}
+      for (let k = 0; k < this.guessBoard.length; k++) {
+            if (this.guessBoard[k].includes(guess))  {
+              console.log(this.guessBoard[k].includes(guess));
+              console.log(this.guessBoard.length)
               this.missedAttack(guess)
-             // return 'miss'
+              return 'miss'
             }
-          }
+          
          // console.log(this.fleet[i].coord)
           //let result = 'miss';
         //  return result
-    }}}
+    }}
 
     allSunk(){
       console.log('sunk')
@@ -150,11 +147,11 @@ const board1 = ['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8', 'A9', 'A10',
                'C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7', 'C8', 'C9', 'C10',
                'D1', 'D2', 'D3', 'D4', 'D5', 'D6', 'D7', 'D8', 'D9', 'D10',
                'E1', 'E2', 'E3', 'E4', 'E5', 'E6', 'E7', 'E8', 'E9', 'E10',
-               'F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 'F9', 'F10',
-               'G1', 'G2', 'G3', 'G4', 'G5', 'G6', 'G7', 'G8', 'G9', 'G10',
-               'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'H7', 'H8', 'H9', 'H10',
-               'I1', 'I2', 'I3', 'I4', 'I5', 'I6', 'I7', 'I8', 'I9', 'I10',
-               'J1', 'J2', 'J3', 'J4', 'J5', 'J6', 'J7', 'J8', 'J9', 'J10']
+               'F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 'F9', 'F0',
+               'G1', 'G2', 'G3', 'G4', 'G5', 'G6', 'G7', 'G8', 'G9', 'G0',
+               'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'H7', 'H8', 'H9', 'H0',
+               'I1', 'I2', 'I3', 'I4', 'I5', 'I6', 'I7', 'I8', 'I9', 'I0',
+               'J1', 'J2', 'J3', 'J4', 'J5', 'J6', 'J7', 'J8', 'J9', 'J0']
 
 
 function gameLogic(guess){
@@ -188,12 +185,12 @@ function fakeGame(guess, board){
 let player = gameLogic();
 console.log(player)
 
-let newResult = fakeGame('D1', player.board);
-let newResult2 = fakeGame('D2', player.board);
-let newResult3 = fakeGame('D3', player.board);
+let newResult = fakeGame('J1', player.board);
+//let newResult2 = fakeGame('D2', player.board);
+//let newResult3 = fakeGame('D3', player.board);
 console.log(newResult)
-console.log(newResult2)
-console.log(newResult3)
+//console.log(newResult2)
+//console.log(newResult3)
 console.log(player.board.fleet)
 console.log(player.board.battleship)
 // module.exports = gameLogic;
@@ -201,11 +198,24 @@ console.log(player.board.battleship)
 
 
 
+function setFleet() {
+  let firstCoord = 0
+}
 
 
-function generateDisplayBoard() {
-  const shipBoard = document.getElementById('shipBoard');
-  console.log(container);
+
+
+function displayFleet(board) {
+  let defendBoard = document.getElementById('defendBoard');
+  let cruiser
+
+}
+
+
+
+function generateDisplayBoard(attack) {
+  const shipBoard = document.getElementById(`${attack}Board`);
+  //console.log(container);
   for (let i=1; i<11; i++) {
     let cellA = document.createElement('div');
     cellA.setAttribute('class', 'cell');
@@ -249,7 +259,8 @@ function generateDisplayBoard() {
     shipBoard.appendChild(cellJ);
   }
 }
-generateDisplayBoard();
+generateDisplayBoard('attack');
+generateDisplayBoard('defend');
 
 
 
