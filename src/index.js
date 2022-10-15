@@ -21,7 +21,8 @@ class Ship {
     console.log(this)
     this.hits = this.hits + 1
     console.log(this.hits);
-    this.isSunk()
+    let result = this.isSunk()
+    console.log(result)
     
   }
  
@@ -90,7 +91,7 @@ class Gameboard {
         let guessCoord = this.guessBoard.indexOf(coord);
         if (~guessCoord) {
           this.guessBoard[guessCoord] = 'miss'
-          console.log(this.guessBoard)
+         // console.log(this.guessBoard)
         }
        
   
@@ -99,22 +100,26 @@ class Gameboard {
     recieveAttack(guess){
       //console.log(this)
       for (let i = 0; i < this.fleet.length; i++) {
+       // console.log(i)
+        // console.log(this.fleet[i].coord);
         if (this.fleet[i].coord.includes(guess)) {
+         
           let result = 'hit'
+          console.log(result)
           this.fleet[i].numberHits()
-          // console.log(this.guessBoard)
+          
           return result
         } else {
           for (let k = 0; k < this.guessBoard.length; k++) {
             if (this.guessBoard[k].includes(guess)) {
               console.log('hjere');
               this.missedAttack(guess)
-              return 'miss'
+             // return 'miss'
             }
           }
-          console.log(this.fleet[i].coord)
-          let result = 'miss';
-          return result
+         // console.log(this.fleet[i].coord)
+          //let result = 'miss';
+        //  return result
     }}}
 
     allSunk(){
@@ -156,18 +161,18 @@ function gameLogic(guess){
   const player1 = new Player
   player1.name = 'plaeyr'
   player1.cruiserArr = ['A1','A2','A3']
-  player1.destroyerArr = ['B1','B2','B3']
-  player1.carrierArr = ['C1','C2','C3']
-  player1.battleshipArr = ['D1','D2','D3']
+  player1.destroyerArr = ['B1','B2']
+  player1.carrierArr = ['C1','C2','C3','C4','C5']
+  player1.battleshipArr = ['D1','D2','D3','D4']
   player1.submarineArr = ['E1','E2','E3']
   let player1Board = player1.createBoard('firstboard');
   // player1Board.fleet = 'fleet1';
   // console.log(player1Board)
  player1Board.setCruiser = player1Board.placeShip('Cruiser', 3, player1.cruiserArr)
- player1Board.setDestroyer = player1Board.placeShip('Destroyer', 3, player1.destroyerArr)
+ player1Board.setDestroyer = player1Board.placeShip('Destroyer', 2, player1.destroyerArr)
  player1Board.setSubmarine = player1Board.placeShip('Submarine', 3, player1.submarineArr)
- player1Board.setBattleship = player1Board.placeShip('Battleship', 3, player1.battleshipArr)
- player1Board.setCarrier = player1Board.placeShip('Carrier', 3, player1.carrierArr)
+ player1Board.setBattleship = player1Board.placeShip('Battleship', 4, player1.battleshipArr)
+ player1Board.setCarrier = player1Board.placeShip('Carrier', 5, player1.carrierArr)
  return player1
 }
 
@@ -183,12 +188,14 @@ function fakeGame(guess, board){
 let player = gameLogic();
 console.log(player)
 
-let newResult = fakeGame('A1', player.board);
-let newResult2 = fakeGame('A2');
-let newResult3 = fakeGame('A3');
+let newResult = fakeGame('D1', player.board);
+let newResult2 = fakeGame('D2', player.board);
+let newResult3 = fakeGame('D3', player.board);
 console.log(newResult)
 console.log(newResult2)
 console.log(newResult3)
+console.log(player.board.fleet)
+console.log(player.board.battleship)
 // module.exports = gameLogic;
 
 
