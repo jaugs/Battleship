@@ -12,21 +12,22 @@
     <div id="defendBoard" class="shipBoard"></div>
     <div class="sidebar">
 
-      <div class="cruiser">
+      <div id="cruiser" class="ship">
         <label for="cruiser">Cruiser (3 coordinates):</label>
         <input type="text" id="cruCoord1" name="cruiser" require minlength="2" maxlength="2" size="2">
         <input type="text" id="cruCoord2" name="cruiser" require minlength="2" maxlength="2" size="2">
         <input type="text" id="cruCoord3" name="cruiser" require minlength="2" maxlength="2" size="2">
+        <button class="confirm" id="confirmCruiser">Submit</button>
       </div>
 
-      <div class="submarine">
+      <div id="submarine" class="ship">
         <label for="submarine">Submarine (3 coordinates):</label>
         <input type="text" id="subCoord1" name="submarine" require minlength="2" maxlength="2" size="2">
         <input type="text" id="subCoord2" name="submarine" require minlength="2" maxlength="2" size="2">
         <input type="text" id="subCoord3" name="submarine" require minlength="2" maxlength="2" size="2">
       </div>
 
-      <div class="destroyer">
+      <div id="destroyer" class="ship">
         <label for="destroyer">Destroyer (2 coordinates):</label>
         <input type="text" id="desCoord1" name="destroyer" require minlength="2" maxlength="2" size="2">
         <input type="text" id="desCoord2" name="destroyer" require minlength="2" maxlength="2" size="2">

@@ -83,15 +83,12 @@ class Gameboard {
      ship.hits = 0;
      ship.coord = coord
      this.fleet.push(ship)
-     //console.log(this)
-     // console.log(ship)
     return ship;
     }
     missedAttack(coord) {
         let guessCoord = this.guessBoard.indexOf(coord);
         if (~guessCoord) {
           this.guessBoard[guessCoord] = 'miss'
-          console.log(this.guessBoard)
         }
        
   
@@ -108,8 +105,6 @@ class Gameboard {
         }}
       for (let k = 0; k < this.guessBoard.length; k++) {
             if (this.guessBoard[k].includes(guess))  {
-              console.log(this.guessBoard[k].includes(guess));
-              console.log(this.guessBoard.length)
               this.missedAttack(guess)
               return 'miss'
             }
@@ -138,33 +133,21 @@ class Player {
   let newBoard = new Gameboard
   newBoard.name = boardName
   this.board = newBoard;
-  console.log(this.board)
   return newBoard;
  }
 }
-const board1 = ['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8', 'A9', 'A10',
-               'B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8', 'B9', 'B10',
-               'C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7', 'C8', 'C9', 'C10',
-               'D1', 'D2', 'D3', 'D4', 'D5', 'D6', 'D7', 'D8', 'D9', 'D10',
-               'E1', 'E2', 'E3', 'E4', 'E5', 'E6', 'E7', 'E8', 'E9', 'E10',
-               'F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 'F9', 'F0',
-               'G1', 'G2', 'G3', 'G4', 'G5', 'G6', 'G7', 'G8', 'G9', 'G0',
-               'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'H7', 'H8', 'H9', 'H0',
-               'I1', 'I2', 'I3', 'I4', 'I5', 'I6', 'I7', 'I8', 'I9', 'I0',
-               'J1', 'J2', 'J3', 'J4', 'J5', 'J6', 'J7', 'J8', 'J9', 'J0']
 
-
-function gameLogic(guess){
+function playerStartup(){
   const player1 = new Player
-  player1.name = 'plaeyr'
+  player1.name = 'player'
   player1.cruiserArr = ['A1','A2','A3']
   player1.destroyerArr = ['B1','B2']
   player1.carrierArr = ['C1','C2','C3','C4','C5']
   player1.battleshipArr = ['D1','D2','D3','D4']
   player1.submarineArr = ['E1','E2','E3']
   let player1Board = player1.createBoard('firstboard');
-  // player1Board.fleet = 'fleet1';
-  // console.log(player1Board)
+  //setFleet(player1);
+ // console.log(player1.cruiserArr);
  player1Board.setCruiser = player1Board.placeShip('Cruiser', 3, player1.cruiserArr)
  player1Board.setDestroyer = player1Board.placeShip('Destroyer', 2, player1.destroyerArr)
  player1Board.setSubmarine = player1Board.placeShip('Submarine', 3, player1.submarineArr)
@@ -173,80 +156,104 @@ function gameLogic(guess){
  return player1
 }
 
-function fakeGame(guess, board){
 
- let guess2 = 'A2'
- let guess3 = 'A3'
- let result = board.recieveAttack(guess)
- console.log(board.fleet)
-
- return result
-}
-let player = gameLogic();
+let player = playerStartup();
+let arr = ['J1', 'J2', 'J3']
+player.board.cruiser.coord = arr
 console.log(player)
+setFleet();
+//console.log(player)
 
-let newResult = fakeGame('J1', player.board);
+//let newResult = fakeGame('J1', player.board);
 //let newResult2 = fakeGame('D2', player.board);
 //let newResult3 = fakeGame('D3', player.board);
-console.log(newResult)
+//console.log(newResult)
 //console.log(newResult2)
 //console.log(newResult3)
-console.log(player.board.fleet)
-console.log(player.board.battleship)
+//console.log(player.board.fleet)
+//console.log(player.board.battleship)
 // module.exports = gameLogic;
 
-
-
-
 function setFleet() {
-  let firstCoord = 0
+  let cruButton = document.getElementById('confirmCruiser');
+  cruButton.addEventListener("click", function(event) {
+    let result = setCruiser(event);
+    player.board.cruiser.coord = result
+    displayFleet(result)
+    console.log(result)
+  }, false);
+
+}
+
+function setCruiser(e) {
+  let cruArr =[]
+  let coor1 = document.getElementById('cruCoord1').value;
+  let coor2 = document.getElementById('cruCoord2').value;
+  let coor3 = document.getElementById('cruCoord3').value;
+  cruArr.push(coor1, coor2, coor3)
+  checkValues(cruArr);
+  return cruArr
 }
 
 
-
-
-function displayFleet(board) {
+function displayFleet(arr) {
   let defendBoard = document.getElementById('defendBoard');
-  let cruiser
+  for (let i=0; i<arr.length; i++) {
+    let coord = arr[i]
+    let cell = document.getElementById(`de${coord}`);
+    console.log(cell)
+    cell.style.backgroundColor = "red";
+  }
 
 }
 
+function checkValues(arr) {
+  
+}
 
 
-function generateDisplayBoard(attack) {
+function fakeGame(guess, board){
+  let guess2 = 'A2'
+  let guess3 = 'A3'
+  let result = board.recieveAttack(guess)
+  return result
+ }
+ 
+
+function generateDisplayBoard(attack, num) {
   const shipBoard = document.getElementById(`${attack}Board`);
   //console.log(container);
   for (let i=1; i<11; i++) {
     let cellA = document.createElement('div');
     cellA.setAttribute('class', 'cell');
-    cellA.setAttribute('id', `A${i}`);
+    cellA.setAttribute('id', `${num}A${i}`);
     let cellB = document.createElement('div');
     cellB.setAttribute('class', 'cell');
-    cellB.setAttribute('id', `B${i}`);
+    cellB.setAttribute('id', `${num}B${i}`);
     let cellC = document.createElement('div');
     cellC.setAttribute('class', 'cell');
-    cellC.setAttribute('id', `C${i}`);
+    cellC.setAttribute('id', `${num}C${i}`);
     let cellD = document.createElement('div');
     cellD.setAttribute('class', 'cell');
-    cellD.setAttribute('id', `D${i}`);
+    cellD.setAttribute('id', `${num}D${i}`);
     let cellE = document.createElement('div');
     cellE.setAttribute('class', 'cell');
-    cellE.setAttribute('id', `E${i}`);
+    cellE.setAttribute('id', `${num}E${i}`);
     let cellF = document.createElement('div');
     cellF.setAttribute('class', 'cell');
-    cellF.setAttribute('id', `F${i}`);
+    cellF.setAttribute('id', `${num}F${i}`);
     let cellG = document.createElement('div');
     cellG.setAttribute('class', 'cell');
-    cellG.setAttribute('id', `G${i}`);
+    cellG.setAttribute('id', `${num}G${i}`);
     let cellH = document.createElement('div');
     cellH.setAttribute('class', 'cell');
-    cellH.setAttribute('id', `H${i}`);
+    cellH.setAttribute('id', `${num}H${i}`);
     let cellI = document.createElement('div');
     cellI.setAttribute('class', 'cell');
-    cellI.setAttribute('id', `I${i}`);
+    cellI.setAttribute('id', `${num}I${i}`);
     let cellJ = document.createElement('div');
     cellJ.setAttribute('class', 'cell');
-    cellJ.setAttribute('id', `J${i}`);
+    cellJ.setAttribute('id', `${num}J${i}`);
     shipBoard.appendChild(cellA);
     shipBoard.appendChild(cellB);
     shipBoard.appendChild(cellC);
@@ -259,40 +266,11 @@ function generateDisplayBoard(attack) {
     shipBoard.appendChild(cellJ);
   }
 }
-generateDisplayBoard('attack');
-generateDisplayBoard('defend');
+
+generateDisplayBoard('defend', 'de');
+generateDisplayBoard('attack', 'at');
 
 
 
 
-
-
-
-
-// console.log('hellow')
-// function caesarCipher(string, num) {
-//   let splitCode = [];
-//   let combinedCode = []
-//   let lowerString = string.toLowerCase();
-//   for (let i = 0; i < lowerString.length; i++) {
-//   let splitCode = lowerString.charCodeAt(i)
-//   console.log(splitCode);
-//   if (splitCode == 122) {
-//     let addedCode = 96 + num;
-//     let newLetter = String.fromCharCode(addedCode);
-//     console.log(newLetter);
-//     combinedCode[i] = newLetter
-//   } else if ((splitCode < 123) && (splitCode > 96))  {
-//   let addedCode = splitCode + num;
-//   let newLetter = String.fromCharCode(addedCode);
-//   combinedCode[i] = newLetter
-//   }
-  
-//    console.log(combinedCode);
-//   }
-//   return combinedCode.join('');
-
-// }
-//  caesarCipher('Z./a', 1);
-// module.exports = caesarCipher;
 
