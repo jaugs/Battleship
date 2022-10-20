@@ -167,9 +167,65 @@ function randomCoord(){
   letter += characters.charAt(Math.floor(Math.random() * charactersLength))
   let result = letter + num;
   console.log(result);
+ // console.log(result[0])
   return result
 }
 
+function randomPlaceShip(size){
+  let firstCoor = randomCoord()
+  let characters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I' , 'J'];
+  let bool = Math.random() < 0.5;
+  if (bool) {
+    let arr = []
+    let letter = firstCoor[0];
+    let number = firstCoor[1];
+    let index = characters.indexOf(letter)
+    if (index > (characters.length-size)) {
+      index = characters.length-size;
+    }
+    let firstLetter = characters[index]
+    let secondLetter = characters[index+1]
+    let thirdLetter = characters[index+2]
+    let forthLetter = characters[index+3]
+    let fifthLetter = characters[index+4]
+    console.log(secondLetter);
+    if (size == 2) {
+      arr.push((firstLetter+number), (secondLetter+number));
+    } else if (size == 3) {
+      arr.push((firstLetter+number), (secondLetter+number), (thirdLetter+number));
+    } else if (size == 4) {
+      arr.push((firstLetter+number), (secondLetter+number), (thirdLetter+number), (forthLetter+number));
+    } else if (size == 5) {
+    arr.push((firstLetter+number), (secondLetter+number), (thirdLetter+number), (forthLetter+number), (fifthLetter+number));
+    }
+    console.log(arr);
+    return arr
+  } else {
+    console.log('number')
+    let arr = []
+    let letter = firstCoor[0];
+    let number = firstCoor[1];
+    if (number > (10-size)) {
+      number = 10-size
+    }
+    let firstNumber = number
+    let secondNumber = number + 1
+    let thirdNumber = number + 2
+    let forthNumber = number + 3
+    let fifthNumber = number + 4
+    if (size == 2) {
+      arr.push((letter+firstNumber), (letter+secondNumber));
+    } else if (size == 3) {
+      arr.push((letter+firstNumber), (letter+secondNumber), (letter+thirdNumber));
+    } else if (size == 4) {
+      arr.push((letter+firstNumber), (letter+secondNumber), (letter+thirdNumber), (letter+forthNumber));
+    } else if (size == 5) {
+      arr.push((letter+firstNumber), (letter+secondNumber), (letter+thirdNumber), (letter+forthNumber), (letter+fifthNumber));    
+    }
+    console.log(arr);
+    return arr
+  }
+}
 
 function setComputerPlayer() {
   const compPlayer = new Player
@@ -194,6 +250,7 @@ let player = playerStartup();
 let compPlayer = setComputerPlayer();
 console.log(compPlayer)
 console.log(randomCoord())
+console.log(randomPlaceShip(2));
 setFleet();
 //console.log(player)
 
