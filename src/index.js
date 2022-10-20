@@ -122,7 +122,8 @@ class Gameboard {
 class Player {
   constructor(name, board) {
     this.name = name;
-    this.board = board
+    this.board = board;
+    this.turn = true;
     this.cruiserArr = [];
     this.destroyerArr = [];
     this.submarineArr = [];
@@ -146,6 +147,7 @@ function playerStartup(){
   player1.battleshipArr = ['D1','D2','D3','D4']
   player1.submarineArr = ['E1','E2','E3']
   let player1Board = player1.createBoard('firstboard');
+  player1.turn = true;
   //setFleet(player1);
  // console.log(player1.cruiserArr);
  player1Board.setCruiser = player1Board.placeShip('Cruiser', 3, player1.cruiserArr)
@@ -157,10 +159,41 @@ function playerStartup(){
 }
 
 
+function randomCoord(){
+  let letter = ''
+  let num= Math.floor(Math.random() * 10);
+  let characters = 'ABCDEFGHIJ';
+  let charactersLength = characters.length;
+  letter += characters.charAt(Math.floor(Math.random() * charactersLength))
+  let result = letter + num;
+  console.log(result);
+  return result
+}
+
+
+function setComputerPlayer() {
+  const compPlayer = new Player
+  compPlayer.name = 'compPlayer'
+  compPlayer.cruiserArr = ['A1','A2','A3']
+  compPlayer.destroyerArr = ['B1','B2']
+  compPlayer.carrierArr = ['C1','C2','C3','C4','C5']
+  compPlayer.battleshipArr = ['D1','D2','D3','D4']
+  compPlayer.submarineArr = ['E1','E2','E3']
+  let compBoard = compPlayer.createBoard('compBoard');
+  compPlayer.turn = false;
+ compBoard.setCruiser = compBoard.placeShip('Cruiser', 3, compPlayer.cruiserArr)
+ compBoard.setDestroyer = compBoard.placeShip('Destroyer', 2, compPlayer.destroyerArr)
+ compBoard.setSubmarine = compBoard.placeShip('Submarine', 3, compPlayer.submarineArr)
+ compBoard.setBattleship = compBoard.placeShip('Battleship', 4, compPlayer.battleshipArr)
+ compBoard.setCarrier = compBoard.placeShip('Carrier', 5, compPlayer.carrierArr)
+ return compPlayer
+}
+
+
 let player = playerStartup();
-let arr = ['J1', 'J2', 'J3']
-player.board.cruiser.coord = arr
-console.log(player)
+let compPlayer = setComputerPlayer();
+console.log(compPlayer)
+console.log(randomCoord())
 setFleet();
 //console.log(player)
 
@@ -175,17 +208,67 @@ setFleet();
 // module.exports = gameLogic;
 
 function setFleet() {
+  let cruiser = document.getElementById('cruiser')
   let cruButton = document.getElementById('confirmCruiser');
+  let destroyer = document.getElementById('destroyer')
+  let desButton = document.getElementById('confirmDestroyer');
+  let submarine = document.getElementById('submarine')
+  let subButton = document.getElementById('confirmSubmarine');
+  let battleship = document.getElementById('battleship')
+  let batButton = document.getElementById('confirmBattleship');
+  let carrier = document.getElementById('carrier')
+  let carButton = document.getElementById('confirmCarrier');
+  desButton.addEventListener("click", function(event) {
+    let result = setShip(event, 'destroyer');
+    player.board.destroyer.coord = result
+    displayFleet(result)
+    destroyer.removeChild(desButton);
+  }, false);
   cruButton.addEventListener("click", function(event) {
-    let result = setCruiser(event);
+    let result = setShip(event, 'cruiser');
     player.board.cruiser.coord = result
     displayFleet(result)
-    console.log(result)
+    console.log(player.board)
+    cruiser.removeChild(cruButton);
   }, false);
+  subButton.addEventListener("click", function(event) {
+    let result = setShip(event, 'submarine');
+    player.board.submarine.coord = result
+    displayFleet(result)
+    submarine.removeChild(subButton);
+  }, false);
+  batButton.addEventListener("click", function(event) {
+    let result = setShip(event, 'battleship');
+    player.board.battleship.coord = result
+    displayFleet(result)
+    battleship.removeChild(batButton);
+  }, false);
+  carButton.addEventListener("click", function(event) {
+    let result = setShip(event, 'carrier');
+    player.board.carrier.coord = result
+    displayFleet(result)
+    carrier.removeChild(carButton);
+  }, false);
+
+  let startButton = document.getElementById('start')
+  startButton.addEventListener("click", startGame);
+
+
 
 }
 
-function setCruiser(e) {
+function startGame() {
+  setComputerPlayer();
+  if (player.turn == true) {
+    guess
+  }
+}
+
+
+
+
+function setShip(e, ship) {
+  if (ship == 'cruiser') {
   let cruArr =[]
   let coor1 = document.getElementById('cruCoord1').value;
   let coor2 = document.getElementById('cruCoord2').value;
@@ -193,6 +276,41 @@ function setCruiser(e) {
   cruArr.push(coor1, coor2, coor3)
   checkValues(cruArr);
   return cruArr
+  } else if (ship == 'destroyer') {
+    let desArr =[]
+    let coor1 = document.getElementById('desCoord1').value;
+    let coor2 = document.getElementById('desCoord2').value;
+    desArr.push(coor1, coor2)
+    checkValues(desArr);
+    return desArr
+  } else if (ship == 'submarine') {
+    let subArr =[]
+    let coor1 = document.getElementById('subCoord1').value;
+    let coor2 = document.getElementById('subCoord2').value;
+    let coor3 = document.getElementById('subCoord3').value;
+    subArr.push(coor1, coor2, coor3)
+    checkValues(subArr);
+    return subArr
+  } else if (ship == 'battleship') {
+    let batArr =[]
+    let coor1 = document.getElementById('batCoord1').value;
+    let coor2 = document.getElementById('batCoord2').value;
+    let coor3 = document.getElementById('batCoord3').value;
+    let coor4 = document.getElementById('batCoord4').value;
+    batArr.push(coor1, coor2, coor3, coor4)
+    checkValues(batArr);
+    return batArr
+  } else if (ship == 'carrier') {
+    let carArr =[]
+    let coor1 = document.getElementById('carCoord1').value;
+    let coor2 = document.getElementById('carCoord2').value;
+    let coor3 = document.getElementById('carCoord3').value;
+    let coor4 = document.getElementById('carCoord4').value;
+    let coor5 = document.getElementById('carCoord5').value;
+    carArr.push(coor1, coor2, coor3, coor4, coor5)
+    checkValues(carArr);
+    return carArr
+  }
 }
 
 
