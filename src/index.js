@@ -166,7 +166,6 @@ function randomCoord(){
   let charactersLength = characters.length;
   letter += characters.charAt(Math.floor(Math.random() * charactersLength))
   let result = letter + num;
-  console.log(result);
  // console.log(result[0])
   return result
 }
@@ -188,7 +187,6 @@ function randomPlaceShip(size){
     let thirdLetter = characters[index+2]
     let forthLetter = characters[index+3]
     let fifthLetter = characters[index+4]
-    console.log(secondLetter);
     if (size == 2) {
       arr.push((firstLetter+number), (secondLetter+number));
     } else if (size == 3) {
@@ -198,13 +196,12 @@ function randomPlaceShip(size){
     } else if (size == 5) {
     arr.push((firstLetter+number), (secondLetter+number), (thirdLetter+number), (forthLetter+number), (fifthLetter+number));
     }
-    console.log(arr);
+    //console.log(arr);
     return arr
   } else {
-    console.log('number')
     let arr = []
     let letter = firstCoor[0];
-    let number = firstCoor[1];
+    let number = Number(firstCoor[1]);
     if (number > (10-size)) {
       number = 10-size
     }
@@ -222,19 +219,56 @@ function randomPlaceShip(size){
     } else if (size == 5) {
       arr.push((letter+firstNumber), (letter+secondNumber), (letter+thirdNumber), (letter+forthNumber), (letter+fifthNumber));    
     }
-    console.log(arr);
+   // console.log(arr);
     return arr
   }
 }
 
+function checkShip(shipArr1, shipArr2, shipArr3, shipArr4, shipArr5){
+  let check1 = shipArr1.filter(element => (shipArr2.includes(element) || shipArr3.includes(element) || shipArr4.includes(element) || shipArr5.includes(element)));
+  if (check1.length == 0) {
+    let check2 = shipArr2.filter(element => (shipArr3.includes(element) || shipArr4.includes(element) || shipArr5.includes(element)));
+    if (check2.length == 0) {
+      let check3 = shipArr3.filter(element => (shipArr4.includes(element) || shipArr5.includes(element)));
+      if (check3.length == 0) {
+        let check4 = shipArr4.filter(element => (shipArr5.includes(element)));
+        if (check4.length == 0) {
+          return true
+        } else { 
+          console.log('false4')
+          return false
+          }
+      } else {
+        console.log('false3')
+        return false
+      }
+    } else {
+      console.log('false2')
+    return false
+    }
+  } else {
+    console.log('false')
+    return false
+  }
+  
+}
+
 function setComputerPlayer() {
-  const compPlayer = new Player
-  compPlayer.name = 'compPlayer'
-  compPlayer.cruiserArr = ['A1','A2','A3']
-  compPlayer.destroyerArr = ['B1','B2']
-  compPlayer.carrierArr = ['C1','C2','C3','C4','C5']
-  compPlayer.battleshipArr = ['D1','D2','D3','D4']
-  compPlayer.submarineArr = ['E1','E2','E3']
+  const compPlayer = new Player;
+  compPlayer.name = 'compPlayer';
+
+  function randomize(){
+  compPlayer.carrierArr = randomPlaceShip(5);
+  compPlayer.battleshipArr = randomPlaceShip(4);
+  compPlayer.cruiserArr = randomPlaceShip(3);
+  compPlayer.submarineArr = randomPlaceShip(3);
+  compPlayer.destroyerArr = randomPlaceShip(2)
+  let check = checkShip(compPlayer.carrierArr, compPlayer.battleshipArr, compPlayer.cruiserArr, compPlayer.submarineArr, compPlayer.destroyerArr);
+  if (check == false) {
+    randomize()
+  } else return
+  }
+  randomize()
   let compBoard = compPlayer.createBoard('compBoard');
   compPlayer.turn = false;
  compBoard.setCruiser = compBoard.placeShip('Cruiser', 3, compPlayer.cruiserArr)
@@ -242,15 +276,15 @@ function setComputerPlayer() {
  compBoard.setSubmarine = compBoard.placeShip('Submarine', 3, compPlayer.submarineArr)
  compBoard.setBattleship = compBoard.placeShip('Battleship', 4, compPlayer.battleshipArr)
  compBoard.setCarrier = compBoard.placeShip('Carrier', 5, compPlayer.carrierArr)
+ console.log(compBoard)
  return compPlayer
 }
 
 
 let player = playerStartup();
 let compPlayer = setComputerPlayer();
-console.log(compPlayer)
-console.log(randomCoord())
-console.log(randomPlaceShip(2));
+//console.log(compPlayer)
+//console.log(randomPlaceShip(5));
 setFleet();
 //console.log(player)
 
