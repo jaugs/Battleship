@@ -18,11 +18,11 @@ class Ship {
     return sunk
   }
   numberHits() {
-    console.log(this)
+    //console.log(this)
     this.hits = this.hits + 1
-    console.log(this.hits);
+    //console.log(this.hits);
     let result = this.isSunk()
-    console.log(result)
+    //console.log(result)
     
   }
  
@@ -98,7 +98,7 @@ class Gameboard {
       //console.log(this)
       for (let i = 0; i < this.fleet.length; i++) {
         if (this.fleet[i].coord.includes(guess)) {
-          let result = 'hit'
+          let result = true
           console.log(result)
           this.fleet[i].numberHits()
           return result
@@ -106,12 +106,10 @@ class Gameboard {
       for (let k = 0; k < this.guessBoard.length; k++) {
             if (this.guessBoard[k].includes(guess))  {
               this.missedAttack(guess)
-              return 'miss'
+              return false
             }
           
-         // console.log(this.fleet[i].coord)
-          //let result = 'miss';
-        //  return result
+     
     }}
 
     allSunk(){
@@ -288,15 +286,27 @@ let compPlayer = setComputerPlayer();
 setFleet();
 //console.log(player)
 
-//let newResult = fakeGame('J1', player.board);
-//let newResult2 = fakeGame('D2', player.board);
-//let newResult3 = fakeGame('D3', player.board);
-//console.log(newResult)
-//console.log(newResult2)
-//console.log(newResult3)
-//console.log(player.board.fleet)
-//console.log(player.board.battleship)
-// module.exports = gameLogic;
+function randomPlayerShips() {
+  function randomize(){
+    player.board.carrier.coord = randomPlaceShip(5);
+    player.board.battleship.coord = randomPlaceShip(4);
+    player.board.cruiser.coord = randomPlaceShip(3);
+    player.board.submarine.coord = randomPlaceShip(3);
+    player.board.destroyer.coord = randomPlaceShip(2)
+    let check = checkShip(player.board.carrier.coord, player.board.battleship.coord, player.board.cruiser.coord, player.board.submarine.coord, player.board.destroyer.coord);
+    if (check == false) {
+      randomize()
+    } else return
+    }
+    randomize()
+    displayFleet(player.board.carrier.coord);
+    displayFleet(player.board.battleship.coord);
+    displayFleet(player.board.cruiser.coord);
+    displayFleet(player.board.submarine.coord);
+    displayFleet(player.board.destroyer.coord);
+
+
+}
 
 function setFleet() {
   let cruiser = document.getElementById('cruiser')
@@ -340,7 +350,8 @@ function setFleet() {
     displayFleet(result)
     carrier.removeChild(carButton);
   }, false);
-
+  let randomizeButton = document.getElementById('randomize');
+  randomizeButton.addEventListener("click", randomPlayerShips);
   let startButton = document.getElementById('start')
   startButton.addEventListener("click", startGame);
 
@@ -348,15 +359,46 @@ function setFleet() {
 
 }
 
-function startGame() {
-  setComputerPlayer();
+ function startGame() {
+  
   if (player.turn == true) {
-    guess
+    let guessButton = document.getElementById('confirmGuess')
+    guessButton.addEventListener("click",  function(event) {
+      let result =  playerGuess();
+      let result2 = computerGuess();
+    })
+
+}
+ }
+function playerGuess() {
+  let guess = document.getElementById('guessCoord').value;
+  console.log(guess);
+  let result = compPlayer.board.recieveAttack(guess)
+  if (result == true) {
+      let cell = document.getElementById(`at${guess}`);
+      cell.style.backgroundColor = "red";
+      return true
+  } else if (result == false) {
+    let cell = document.getElementById(`at${guess}`);
+      cell.style.backgroundColor = "blue";
+      return false
   }
 }
 
-
-
+function computerGuess() {
+  let guess = randomCoord()
+  console.log(guess);
+  let result = player.board.recieveAttack(guess)
+  if (result == true) {
+    let cell = document.getElementById(`de${guess}`);
+    cell.style.backgroundColor = "black";
+    return true
+} else if (result == false) {
+  let cell = document.getElementById(`de${guess}`);
+    cell.style.backgroundColor = "blue";
+    return false
+}
+}
 
 function setShip(e, ship) {
   if (ship == 'cruiser') {
@@ -409,8 +451,9 @@ function displayFleet(arr) {
   let defendBoard = document.getElementById('defendBoard');
   for (let i=0; i<arr.length; i++) {
     let coord = arr[i]
+   // console.log(coord);
     let cell = document.getElementById(`de${coord}`);
-    console.log(cell)
+    //console.log(cell)
     cell.style.backgroundColor = "red";
   }
 
@@ -432,7 +475,7 @@ function fakeGame(guess, board){
 function generateDisplayBoard(attack, num) {
   const shipBoard = document.getElementById(`${attack}Board`);
   //console.log(container);
-  for (let i=1; i<11; i++) {
+  for (let i=0; i<10; i++) {
     let cellA = document.createElement('div');
     cellA.setAttribute('class', 'cell');
     cellA.setAttribute('id', `${num}A${i}`);
