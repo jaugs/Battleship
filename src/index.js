@@ -474,8 +474,20 @@ function fakeGame(guess, board){
 
 function generateDisplayBoard(attack, num) {
   const shipBoard = document.getElementById(`${attack}Board`);
+  let arr = ['','A','B','C','D','E','F','G','H','I','J']
   //console.log(container);
+  for (let k=0; k<11; k++) { 
+    let xAxisCell = document.createElement('div');
+    xAxisCell.setAttribute('class', 'xindex');
+    xAxisCell.innerText = arr[k]
+    shipBoard.appendChild(xAxisCell);
+  }
   for (let i=0; i<10; i++) {
+   
+    let indexCell = document.createElement('div');
+    indexCell.setAttribute('class', 'index');
+    indexCell.setAttribute('id', `index${i}`);
+    indexCell.innerText = i;
     let cellA = document.createElement('div');
     cellA.setAttribute('class', 'cell');
     cellA.setAttribute('id', `${num}A${i}`);
@@ -506,6 +518,7 @@ function generateDisplayBoard(attack, num) {
     let cellJ = document.createElement('div');
     cellJ.setAttribute('class', 'cell');
     cellJ.setAttribute('id', `${num}J${i}`);
+    shipBoard.appendChild(indexCell);
     shipBoard.appendChild(cellA);
     shipBoard.appendChild(cellB);
     shipBoard.appendChild(cellC);

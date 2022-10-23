@@ -13,19 +13,58 @@ body {
   grid-area: s;
 }
 
-#attackBoard {
+#attackContainer {
   grid-area: a;
 }
 
-#attackBoard {
+#defendContainer {
   grid-area: b;
+}
+
+.shipContainer {
+  display: grid;
+  /* grid-template-columns: 1fr 20fr;
+  grid-template-rows: 1fr 20fr; */
+  grid-template-areas: 
+   "attack attack"
+   "defend e";
+}
+
+.x-Axis {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  grid-area: attack;
+  gap: 10px;
+  margin-left: 5px;
+}
+.y-Axis {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  grid-area: defend;
+}
+
+.index {
+  width: 40px;
+  height: 40px;
+  background-color: green;
+  border: 1px solid black;
+}
+#attackBoard {
+  grid-area: e;
+}
+
+#defendBoard {
+  grid-area: e;
 }
 
 .shipBoard {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    padding: 10px;
+  width: 400px;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  padding:5px;
 }
 
 .cell {
