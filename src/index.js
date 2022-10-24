@@ -321,46 +321,61 @@ function setFleet() {
   let carButton = document.getElementById('confirmCarrier');
   desButton.addEventListener("click", function(event) {
     let result = setShip(event, 'destroyer');
+    if (result == null) {
+      displayError('destroyer')
+    } else {
+    document.getElementById('destroyerError').style.visibility = 'hidden'
     player.board.destroyer.coord = result
     displayFleet(result)
-    destroyer.removeChild(desButton);
-  }, false);
+    desButton.style.visibility = 'hidden'
+  }}, false);
   cruButton.addEventListener("click", function(event) {
     let result = setShip(event, 'cruiser');
+    if (result == null) {
+      displayError('cruiser')
+    } else {
+    document.getElementById('cruiserError').style.visibility = 'hidden'
     player.board.cruiser.coord = result
     displayFleet(result)
-    console.log(player.board)
-    cruiser.removeChild(cruButton);
-  }, false);
+    cruButton.style.visibility = 'hidden'
+}}, false);
   subButton.addEventListener("click", function(event) {
     let result = setShip(event, 'submarine');
+    if (result == null) {
+      displayError('submarine')
+    } else {
+    document.getElementById('submarineError').style.visibility = 'hidden'
     player.board.submarine.coord = result
     displayFleet(result)
-    submarine.removeChild(subButton);
-  }, false);
+    subButton.style.visibility = 'hidden'
+  }}, false);
   batButton.addEventListener("click", function(event) {
     let result = setShip(event, 'battleship');
+    if (result == null) {
+      displayError('battleship')
+    } else {
+    document.getElementById('battleshipError').style.visibility = 'hidden'
     player.board.battleship.coord = result
     displayFleet(result)
-    battleship.removeChild(batButton);
-  }, false);
+    batButton.style.visibility = 'hidden';
+  }}, false);
   carButton.addEventListener("click", function(event) {
     let result = setShip(event, 'carrier');
+    if (result == null) {
+      displayError('carrier')
+    } else {
+    document.getElementById('carrierError').style.visibility = 'hidden'
     player.board.carrier.coord = result
     displayFleet(result)
-    carrier.removeChild(carButton);
-  }, false);
+    carButton.style.visibility = 'hidden'
+  }}, false);
   let randomizeButton = document.getElementById('randomize');
   randomizeButton.addEventListener("click", randomPlayerShips);
   let startButton = document.getElementById('start')
   startButton.addEventListener("click", startGame);
-
-
-
 }
 
  function startGame() {
-  
   if (player.turn == true) {
     let guessButton = document.getElementById('confirmGuess')
     guessButton.addEventListener("click",  function(event) {
@@ -403,73 +418,129 @@ function computerGuess() {
 function setShip(e, ship) {
   if (ship == 'cruiser') {
   let cruArr =[]
-  let coor1 = document.getElementById('cruCoord1').value;
-  let coor2 = document.getElementById('cruCoord2').value;
-  let coor3 = document.getElementById('cruCoord3').value;
+  let coor1Elm = document.getElementById('cruCoord1')
+  let coor1 = coor1Elm.value.toUpperCase()
+  let coor2Elm = document.getElementById('cruCoord2')
+  let coor2 = coor2Elm.value.toUpperCase()
+  let coor3Elm = document.getElementById('cruCoord3')
+  let coor3 = coor3Elm.value.toUpperCase()
   cruArr.push(coor1, coor2, coor3)
-  checkValues(cruArr);
+  if (checkValues(cruArr)) {
   return cruArr
+  } else {
+    coor1Elm.value = '';
+    coor2Elm.value = ''
+    coor3Elm.value = ''
+    return null
+  }
   } else if (ship == 'destroyer') {
     let desArr =[]
-    let coor1 = document.getElementById('desCoord1').value;
-    let coor2 = document.getElementById('desCoord2').value;
+    let coor1Elm = document.getElementById('desCoord1')
+    let coor1 = coor1Elm.value.toUpperCase();
+    let coor2Elm = document.getElementById('desCoord2')
+    let coor2 = coor2Elm.value.toUpperCase();
     desArr.push(coor1, coor2)
-    checkValues(desArr);
-    return desArr
+    if (checkValues(desArr)) {
+      return desArr
+      } else {
+        coor1Elm.value = '';
+        coor2Elm.value = ''
+        return null
+      }
   } else if (ship == 'submarine') {
     let subArr =[]
-    let coor1 = document.getElementById('subCoord1').value;
-    let coor2 = document.getElementById('subCoord2').value;
-    let coor3 = document.getElementById('subCoord3').value;
+    let coor1Elm = document.getElementById('subCoord1')
+    let coor1 = coor1Elm.value.toUpperCase();
+    let coor2Elm = document.getElementById('subCoord2')
+    let coor2 = coor2Elm.value.toUpperCase();
+    let coor3Elm = document.getElementById('subCoord3')
+    let coor3 = coor3Elm.value.toUpperCase();
     subArr.push(coor1, coor2, coor3)
-    checkValues(subArr);
-    return subArr
+    if (checkValues(subArr)) {
+      return subArr
+      } else {
+        coor1Elm.value = '';
+        coor2Elm.value = ''
+        coor3Elm.value = ''
+        return null
+      }
   } else if (ship == 'battleship') {
     let batArr =[]
-    let coor1 = document.getElementById('batCoord1').value;
-    let coor2 = document.getElementById('batCoord2').value;
-    let coor3 = document.getElementById('batCoord3').value;
-    let coor4 = document.getElementById('batCoord4').value;
+    let coor1Elm = document.getElementById('batCoord1')
+    let coor1 = coor1Elm.value.toUpperCase();
+    let coor2Elm = document.getElementById('batCoord2')
+    let coor2 = coor2Elm.value.toUpperCase();
+    let coor3Elm = document.getElementById('batCoord3')
+    let coor3 = coor3Elm.value.toUpperCase();
+    let coor4Elm = document.getElementById('batCoord4')
+    let coor4 = coor4Elm.value.toUpperCase();
     batArr.push(coor1, coor2, coor3, coor4)
-    checkValues(batArr);
-    return batArr
+    if (checkValues(batArr)) {
+      return batArr
+      } else {
+        coor1Elm.value = '';
+        coor2Elm.value = ''
+        coor3Elm.value = ''
+        coor4Elm.value = ''
+        return null
+      }
   } else if (ship == 'carrier') {
     let carArr =[]
-    let coor1 = document.getElementById('carCoord1').value;
-    let coor2 = document.getElementById('carCoord2').value;
-    let coor3 = document.getElementById('carCoord3').value;
-    let coor4 = document.getElementById('carCoord4').value;
-    let coor5 = document.getElementById('carCoord5').value;
+    let coor1Elm = document.getElementById('carCoord1')
+    let coor1 = coor1Elm.value.toUpperCase();
+    let coor2Elm = document.getElementById('carCoord2')
+    let coor2 = coor2Elm.value.toUpperCase();
+    let coor3Elm = document.getElementById('carCoord3')
+    let coor3 = coor3Elm.value.toUpperCase();
+    let coor4Elm = document.getElementById('carCoord4')
+    let coor4 = coor4Elm.value.toUpperCase();
+    let coor5Elm = document.getElementById('carCoord5')
+    let coor5 = coor5Elm.value.toUpperCase();
     carArr.push(coor1, coor2, coor3, coor4, coor5)
-    checkValues(carArr);
-    return carArr
+    if (checkValues(carArr)) {
+      return carArr
+      } else {
+        coor1Elm.value = '';
+        coor2Elm.value = ''
+        coor3Elm.value = ''
+        coor4Elm.value = ''
+        coor5Elm.value = ''
+        return null
+      }
   }
 }
 
+function displayError(ship) {
+    let shipEl = document.getElementById(`${ship}Error`)
+    shipEl.style.visibility = 'visible'
+    setFleet()
+  
+}
 
 function displayFleet(arr) {
-  let defendBoard = document.getElementById('defendBoard');
   for (let i=0; i<arr.length; i++) {
     let coord = arr[i]
-   // console.log(coord);
     let cell = document.getElementById(`de${coord}`);
-    //console.log(cell)
     cell.style.backgroundColor = "red";
   }
 
 }
 
 function checkValues(arr) {
-  
+  //let capArr = []
+  let reLetter = /[ABCDEFGHIJ]/
+  let reNumber = /[0123456789]/
+  for (let i=0; i < arr.length; i++) {
+    let string = arr[i][0]
+    let num  = arr[i][1]
+    if ((reLetter.test(string) == false) || (reNumber.test(num) == false)) {
+      return false
+    }}
+    return true
 }
 
 
-function fakeGame(guess, board){
-  let guess2 = 'A2'
-  let guess3 = 'A3'
-  let result = board.recieveAttack(guess)
-  return result
- }
+
  
 
 function generateDisplayBoard(attack, num) {

@@ -30,26 +30,25 @@ body {
    "defend e";
 }
 
-.x-Axis {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  grid-area: attack;
-  gap: 10px;
-  margin-left: 5px;
-}
-.y-Axis {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  grid-area: defend;
-}
-
-.index {
+.xindex {
+  display: flex;
   width: 40px;
   height: 40px;
   background-color: green;
   border: 1px solid black;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+.index {
+  display: flex;
+  width: 40px;
+  height: 40px;
+  background-color: green;
+  border: 1px solid black;
+  align-items: center;
+  justify-content: center;
 }
 #attackBoard {
   grid-area: e;
@@ -77,4 +76,8 @@ body {
 .ship {
   border: 1px solid white;
   padding: 10px;
+}
+
+#cruiserError, #destroyerError, #submarineError, #battleshipError, #carrierError {
+  visibility: hidden;
 }
