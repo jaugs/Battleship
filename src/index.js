@@ -395,7 +395,7 @@ function playerGuess() {
       return true
   } else if (result == false) {
     let cell = document.getElementById(`at${guess}`);
-      cell.style.backgroundColor = "blue";
+      cell.style.backgroundColor = "white";
       return false
   }
 }
@@ -406,11 +406,11 @@ function computerGuess() {
   let result = player.board.recieveAttack(guess)
   if (result == true) {
     let cell = document.getElementById(`de${guess}`);
-    cell.style.backgroundColor = "black";
+    cell.style.backgroundColor = "red";
     return true
 } else if (result == false) {
   let cell = document.getElementById(`de${guess}`);
-    cell.style.backgroundColor = "blue";
+    cell.style.backgroundColor = "white";
     return false
 }
 }
@@ -521,7 +521,7 @@ function displayFleet(arr) {
   for (let i=0; i<arr.length; i++) {
     let coord = arr[i]
     let cell = document.getElementById(`de${coord}`);
-    cell.style.backgroundColor = "red";
+    cell.style.backgroundColor = "#64748b";
   }
 
 }
