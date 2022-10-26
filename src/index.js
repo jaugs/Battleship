@@ -1,29 +1,33 @@
-console.log('dfdf')
  import './style.css';
-// let constantee = document.querySelector('.container')
+
+
+
+ // computer guess not already guessed
+ //black out ded ships
+ //clean up code
+ //game over message
+ //
+
 class Ship {
   constructor(name, length, hits) {
     this.name = name;
     this.length = length;
-    this.hits = hits
+    this.hits = hits;
+    this.sunk = false;
   }
   coord = [];
   isSunk(){
-    let sunk = false;
     let totalPoints = this.length;
     if (this.hits == totalPoints) {
-      console.log('sunk')
-      sunk = true;
+
+      this.sunk = true;
+      return true
     }
-    return sunk
+     return false
   }
+
   numberHits() {
-    //console.log(this)
-    this.hits = this.hits + 1
-    //console.log(this.hits);
-    let result = this.isSunk()
-    //console.log(result)
-    
+    this.hits = this.hits + 1    
   }
  
 }
@@ -95,27 +99,34 @@ class Gameboard {
     }
 
     recieveAttack(guess){
-      //console.log(this)
       for (let i = 0; i < this.fleet.length; i++) {
         if (this.fleet[i].coord.includes(guess)) {
           let result = true
-          console.log(result)
           this.fleet[i].numberHits()
+          let sunk = this.fleet[i].isSunk()
+          if (sunk == true) {
+            let allSunk = this.allSunk()
+            if (allSunk == true) {
+              gameOver()
+            }
+          }
           return result
         }}
       for (let k = 0; k < this.guessBoard.length; k++) {
             if (this.guessBoard[k].includes(guess))  {
               this.missedAttack(guess)
               return false
-            }
-          
-     
-    }}
+            }}}
 
     allSunk(){
-      console.log('sunk')
+      for (let i = 0; i < this.fleet.length; i++) {
+        if (this.fleet[i].sunk == false) {
+          return false
+        } else {
+         return true
+        }
     }
-}
+}}
 
 class Player {
   constructor(name, board) {
@@ -156,6 +167,9 @@ function playerStartup(){
  return player1
 }
 
+function gameOver(){
+  alert('game over');
+}
 
 function randomCoord(){
   let letter = ''
@@ -281,7 +295,7 @@ function setComputerPlayer() {
 
 let player = playerStartup();
 let compPlayer = setComputerPlayer();
-//console.log(compPlayer)
+ console.log(player)
 //console.log(randomPlaceShip(5));
 setFleet();
 //console.log(player)
@@ -304,6 +318,7 @@ function randomPlayerShips() {
     displayFleet(player.board.cruiser.coord);
     displayFleet(player.board.submarine.coord);
     displayFleet(player.board.destroyer.coord);
+    console.log(player);
 
 
 }
@@ -376,29 +391,25 @@ function setFleet() {
 }
 
  function startGame() {
-  if (player.turn == true) {
-    let guessButton = document.getElementById('confirmGuess')
-    guessButton.addEventListener("click",  function(event) {
-      let result =  playerGuess();
-      let result2 = computerGuess();
-    })
-
-}
- }
-function playerGuess() {
-  let guess = document.getElementById('guessCoord').value;
-  console.log(guess);
-  let result = compPlayer.board.recieveAttack(guess)
+  console.log(player.board.fleet)
+  let attackBoard = document.getElementById('attackBoard');
+  let cellArr = attackBoard.querySelectorAll('.cell');
+  console.log(cellArr[0]);
+  for (let i=0; i < cellArr.length; i++) {
+    cellArr[i].addEventListener('click', function (e){
+        let cellID = cellArr[i].id
+        let guess = cellID.slice(2)
+        let result = compPlayer.board.recieveAttack(guess)
   if (result == true) {
-      let cell = document.getElementById(`at${guess}`);
-      cell.style.backgroundColor = "red";
-      return true
+      cellArr[i].style.backgroundColor = "red";
+      let sunk = compPlayer.board.isSunk
+      computerGuess();
+     
   } else if (result == false) {
-    let cell = document.getElementById(`at${guess}`);
-      cell.style.backgroundColor = "white";
-      return false
-  }
-}
+    cellArr[i].style.backgroundColor = "white";
+    computerGuess();
+   
+  }})}}
 
 function computerGuess() {
   let guess = randomCoord()

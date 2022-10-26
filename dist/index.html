@@ -26,49 +26,59 @@
     <div class="sidebar">
 
       <div id="carrier" class="ship">
-        <label for="carrier">Carrier (5 coordinates):
+        <div class="title">
+        <label for="carrier">Carrier (5 coordinates): </label></div>
+        <span class="coordInput">
         <input type="text" id="carCoord1" name="carrier" require minlength="2" maxlength="2" size="2">
         <input type="text" id="carCoord2" name="carrier" require minlength="2" maxlength="2" size="2">
         <input type="text" id="carCoord3" name="carrier" require minlength="2" maxlength="2" size="2">
         <input type="text" id="carCoord4" name="carrier" require minlength="2" maxlength="2" size="2">
         <input type="text" id="carCoord5" name="carrier" require minlength="2" maxlength="2" size="2">
-         </label>
+        </span>
         <button class="confirm" id="confirmCarrier">Submit</button>
         <div class="error" id="carrierError">Error: invalid coordinates</div>
       </div>
 
       <div id="battleship" class="ship">
         <label for="battleship">Battleship (4 coordinates):</label>
-        <input type="text" id="batCoord1" name="battleship" require minlength="2" maxlength="2" size="2">
-        <input type="text" id="batCoord2" name="battleship" require minlength="2" maxlength="2" size="2">
-        <input type="text" id="batCoord3" name="battleship" require minlength="2" maxlength="2" size="2">
-        <input type="text" id="batCoord4" name="battleship" require minlength="2" maxlength="2" size="2">
+        <span class="coordInput">
+          <input type="text" id="batCoord1" name="battleship" require minlength="2" maxlength="2" size="2">
+          <input type="text" id="batCoord2" name="battleship" require minlength="2" maxlength="2" size="2">
+          <input type="text" id="batCoord3" name="battleship" require minlength="2" maxlength="2" size="2">
+          <input type="text" id="batCoord4" name="battleship" require minlength="2" maxlength="2" size="2">
+        </span>
         <button class="confirm" id="confirmBattleship">Submit</button>
         <div class="error" id="battleshipError">Error: invalid coordinates</div>
       </div>
 
       <div id="cruiser" class="ship">
         <label for="cruiser">Cruiser (3 coordinates):</label>
-        <input type="text" id="cruCoord1" name="cruiser" require minlength="2" maxlength="2" size="2">
-        <input type="text" id="cruCoord2" name="cruiser" require minlength="2" maxlength="2" size="2">
-        <input type="text" id="cruCoord3" name="cruiser" require minlength="2" maxlength="2" size="2">
+        <span class="coordInput">
+          <input type="text" id="cruCoord1" name="cruiser" require minlength="2" maxlength="2" size="2">
+          <input type="text" id="cruCoord2" name="cruiser" require minlength="2" maxlength="2" size="2">
+          <input type="text" id="cruCoord3" name="cruiser" require minlength="2" maxlength="2" size="2">
+        </span>
         <button class="confirm" id="confirmCruiser">Submit</button>
         <div class="error" id="cruiserError">Error: invalid coordinates</div>
       </div>
 
       <div id="submarine" class="ship">
         <label for="submarine">Submarine (3 coordinates):</label>
-        <input type="text" id="subCoord1" name="submarine" require minlength="2" maxlength="2" size="2">
-        <input type="text" id="subCoord2" name="submarine" require minlength="2" maxlength="2" size="2">
-        <input type="text" id="subCoord3" name="submarine" require minlength="2" maxlength="2" size="2">
+        <span class="coordInput">
+          <input type="text" id="subCoord1" name="submarine" require minlength="2" maxlength="2" size="2">
+          <input type="text" id="subCoord2" name="submarine" require minlength="2" maxlength="2" size="2">
+          <input type="text" id="subCoord3" name="submarine" require minlength="2" maxlength="2" size="2">
+        </span>
         <button class="confirm" id="confirmSubmarine">Submit</button>
         <div class="error" id="submarineError">Error: invalid coordinates</div>
       </div>
 
       <div id="destroyer" class="ship">
         <label for="destroyer">Destroyer (2 coordinates):</label>
-        <input type="text" id="desCoord1" name="destroyer" require minlength="2" maxlength="2" size="2">
-        <input type="text" id="desCoord2" name="destroyer" require minlength="2" maxlength="2" size="2">
+        <span class="coordInput">
+          <input type="text" id="desCoord1" name="destroyer" require minlength="2" maxlength="2" size="2">
+          <input type="text" id="desCoord2" name="destroyer" require minlength="2" maxlength="2" size="2">
+        </span>
         <button class="confirm" id="confirmDestroyer">Submit</button>
         <div class="error" id="destroyerError">Error: invalid coordinates</div>
       </div>

@@ -29,7 +29,9 @@ body {
   grid-area: s;
   display:flex;
   flex-direction: column;
-  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
 }
 
 #attackContainer {
@@ -88,9 +90,10 @@ body {
 .shipBoard {
   display: grid;
   width: 462px;
+  height: 462px;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  border: 3px solid black;
+  border: 2px solid black;
 }
 
 .cell {
@@ -101,16 +104,18 @@ body {
 }
 
 .ship {
+  width: 300px;
   display:flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+  gap: 5px;
   border-radius: 10px;
   background-color: #b9c5bb;
   font-size: 22px;
   font-weight: 500;
   border: 2px solid black;
-  padding: 10px;
+  padding: 5px;
   box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }
 
@@ -133,4 +138,11 @@ body {
 
 .confirm:active {
   transform: translate(0px, 3px);
+}
+
+.coordInput {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+
 }
