@@ -101,16 +101,16 @@ class Gameboard {
     recieveAttack(guess){
       for (let i = 0; i < this.fleet.length; i++) {
         if (this.fleet[i].coord.includes(guess)) {
-          let result = true
           this.fleet[i].numberHits()
           let sunk = this.fleet[i].isSunk()
           if (sunk == true) {
+            displaySunk(this);
             let allSunk = this.allSunk()
             if (allSunk == true) {
               gameOver()
             }
           }
-          return result
+          return true
         }}
       for (let k = 0; k < this.guessBoard.length; k++) {
             if (this.guessBoard[k].includes(guess))  {
@@ -119,14 +119,19 @@ class Gameboard {
             }}}
 
     allSunk(){
+      let sunkArr = []
       for (let i = 0; i < this.fleet.length; i++) {
-        if (this.fleet[i].sunk == false) {
+        let bool = this.fleet[i].sunk;
+        sunkArr.push(bool);
+      }
+      for (let k = 0; k < sunkArr.length; k++) {
+        if (sunkArr[k] == false) {
           return false
-        } else {
-         return true
         }
-    }
-}}
+      } return true
+        }
+    
+}
 
 class Player {
   constructor(name, board) {
@@ -138,6 +143,7 @@ class Player {
     this.submarineArr = [];
     this.battleshipArr = [];
     this.carrierArr = [];
+    this.computerGuessArr = []
   }
  createBoard(boardName) {
   let newBoard = new Gameboard
@@ -145,6 +151,8 @@ class Player {
   this.board = newBoard;
   return newBoard;
  }
+
+
 }
 
 function playerStartup(){
@@ -167,8 +175,10 @@ function playerStartup(){
  return player1
 }
 
-function gameOver(){
-  alert('game over');
+async function gameOver(){
+  setTimeout(() => {
+  prompt('game over');}, "900")
+  
 }
 
 function randomCoord(){
@@ -178,7 +188,6 @@ function randomCoord(){
   let charactersLength = characters.length;
   letter += characters.charAt(Math.floor(Math.random() * charactersLength))
   let result = letter + num;
- // console.log(result[0])
   return result
 }
 
@@ -247,19 +256,15 @@ function checkShip(shipArr1, shipArr2, shipArr3, shipArr4, shipArr5){
         if (check4.length == 0) {
           return true
         } else { 
-          console.log('false4')
           return false
           }
       } else {
-        console.log('false3')
         return false
       }
     } else {
-      console.log('false2')
     return false
     }
   } else {
-    console.log('false')
     return false
   }
   
@@ -301,6 +306,7 @@ setFleet();
 //console.log(player)
 
 function randomPlayerShips() {
+  clearShips()
   function randomize(){
     player.board.carrier.coord = randomPlaceShip(5);
     player.board.battleship.coord = randomPlaceShip(4);
@@ -319,20 +325,47 @@ function randomPlayerShips() {
     displayFleet(player.board.submarine.coord);
     displayFleet(player.board.destroyer.coord);
     console.log(player);
+}
 
+function clearShips() {
+   player.battleshipArr = []
+   player.carrierArr = []
+   player.cruiserArr = []
+   player.submarineArr = []
+   player.destroyerArr = []
+   player.board.carrier.coord = []
+   player.board.battleship.coord = []
+   player.board.cruiser.coord = []
+   player.board.submarine.coord = []
+   player.board.destroyer.coord = []
+   let defendBoard = document.getElementById('defendBoard');
+   let cellArr = defendBoard.querySelectorAll('.cell');
+   for (let i=0; i < cellArr.length; i++) {
+   cellArr[i].style.backgroundColor = "#93c5fd";
+}}
 
+function displaySunk(board) {
+  let boardType
+  if (board.name == "compBoard") {
+     boardType = 'at';}
+  else if (board.name == "firstboard") {
+     boardType = 'de';}
+    for (let i=0; i < board.fleet.length; i++) {
+      if (board.fleet[i].sunk == true) {
+        let arr = board.fleet[i].coord
+        for (let k=0; k < arr.length; k++){
+          let coord = document.getElementById(boardType+arr[k])
+          coord.style.backgroundColor = 'black';
+        }
+      }
+    }
 }
 
 function setFleet() {
-  let cruiser = document.getElementById('cruiser')
   let cruButton = document.getElementById('confirmCruiser');
-  let destroyer = document.getElementById('destroyer')
   let desButton = document.getElementById('confirmDestroyer');
-  let submarine = document.getElementById('submarine')
   let subButton = document.getElementById('confirmSubmarine');
-  let battleship = document.getElementById('battleship')
   let batButton = document.getElementById('confirmBattleship');
-  let carrier = document.getElementById('carrier')
   let carButton = document.getElementById('confirmCarrier');
   desButton.addEventListener("click", function(event) {
     let result = setShip(event, 'destroyer');
@@ -413,17 +446,20 @@ function setFleet() {
 
 function computerGuess() {
   let guess = randomCoord()
-  console.log(guess);
+  if (player.computerGuessArr.includes(guess)) {
+    computerGuess()
+  }
+  player.computerGuessArr.push(guess);
   let result = player.board.recieveAttack(guess)
-  if (result == true) {
-    let cell = document.getElementById(`de${guess}`);
-    cell.style.backgroundColor = "red";
-    return true
-} else if (result == false) {
-  let cell = document.getElementById(`de${guess}`);
-    cell.style.backgroundColor = "white";
-    return false
-}
+      if (result == true) {
+        let cell = document.getElementById(`de${guess}`);
+        cell.style.backgroundColor = "red";
+        return true
+    } else if (result == false) {
+      let cell = document.getElementById(`de${guess}`);
+        cell.style.backgroundColor = "white";
+        return false
+    }
 }
 
 function setShip(e, ship) {

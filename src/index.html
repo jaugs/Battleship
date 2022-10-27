@@ -25,6 +25,9 @@
    
     <div class="sidebar">
 
+      <div id="randomShip" class="ship">
+      <button class="confirm" id="randomize">Random Ship Placement</button></div>
+
       <div id="carrier" class="ship">
         <div class="title">
         <label for="carrier">Carrier (5 coordinates): </label></div>
@@ -83,14 +86,8 @@
         <div class="error" id="destroyerError">Error: invalid coordinates</div>
       </div>
 
-      <button class="confirm" id="randomize">Random Ship Placement</button>
 
 
-      <div class="guessBox"> 
-        <label for="guess">Guess:</label>
-        <input type="text" id="guessCoord" name="guess" require minlength="2" maxlength="2" size="2">
-        <button class="confirm" id="confirmGuess">Submit</button>
-      </div>
       <button class="confirm" id="start">Start Game</button>
     </div>
 
