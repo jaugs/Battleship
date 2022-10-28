@@ -102,6 +102,7 @@ class Gameboard {
       for (let i = 0; i < this.fleet.length; i++) {
         if (this.fleet[i].coord.includes(guess)) {
           this.fleet[i].numberHits()
+          displayGuess(this, guess, 'hit')
           let sunk = this.fleet[i].isSunk()
           if (sunk == true) {
             displaySunk(this);
@@ -115,6 +116,7 @@ class Gameboard {
       for (let k = 0; k < this.guessBoard.length; k++) {
             if (this.guessBoard[k].includes(guess))  {
               this.missedAttack(guess)
+              displayGuess(this, guess, 'miss')
               return false
             }}}
 
@@ -344,6 +346,46 @@ function clearShips() {
    cellArr[i].style.backgroundColor = "#93c5fd";
 }}
 
+function displayGuess(board, guess, hit) {
+  let boardType
+  if (board.name == "compBoard") {
+     boardType = 'at';
+    let coord = document.getElementById(boardType+guess)
+    if (hit == 'hit') {
+    coord.style.backgroundColor = 'red';
+    } else if (hit == 'miss'){
+      coord.style.backgroundColor = 'white';
+    }}
+  else if (board.name == "firstboard") {
+     boardType = 'de';
+     let coord = document.getElementById(boardType+guess)
+     if (hit == 'hit') {
+      coord.style.backgroundColor = 'red';
+      } else if (hit == 'miss'){
+        coord.style.backgroundColor = 'white';
+      }
+}}
+      
+function computerGuess() {
+  let guess = randomCoord()
+  if (player.computerGuessArr.includes(guess)) {
+    computerGuess()
+    return
+  }
+  player.computerGuessArr.push(guess);
+  let result = player.board.recieveAttack(guess)
+  //     if (result == true) {
+  //       let cell = document.getElementById(`de${guess}`);
+  //       cell.style.backgroundColor = "red";
+  //       return true
+  //   } else if (result == false) {
+  //     let cell = document.getElementById(`de${guess}`);
+  //       cell.style.backgroundColor = "white";
+  //       return false
+  //   }
+}
+   
+
 function displaySunk(board) {
   let boardType
   if (board.name == "compBoard") {
@@ -355,7 +397,8 @@ function displaySunk(board) {
         let arr = board.fleet[i].coord
         for (let k=0; k < arr.length; k++){
           let coord = document.getElementById(boardType+arr[k])
-          coord.style.backgroundColor = 'black';
+         // console.log(coord);
+          coord.style.backgroundColor = '#1e293b';
         }
       }
     }
@@ -427,40 +470,27 @@ function setFleet() {
   console.log(player.board.fleet)
   let attackBoard = document.getElementById('attackBoard');
   let cellArr = attackBoard.querySelectorAll('.cell');
-  console.log(cellArr[0]);
   for (let i=0; i < cellArr.length; i++) {
     cellArr[i].addEventListener('click', function (e){
         let cellID = cellArr[i].id
         let guess = cellID.slice(2)
         let result = compPlayer.board.recieveAttack(guess)
-  if (result == true) {
-      cellArr[i].style.backgroundColor = "red";
-      let sunk = compPlayer.board.isSunk
-      computerGuess();
-     
-  } else if (result == false) {
-    cellArr[i].style.backgroundColor = "white";
-    computerGuess();
-   
-  }})}}
+        computerGuess()
+    })}}
 
-function computerGuess() {
-  let guess = randomCoord()
-  if (player.computerGuessArr.includes(guess)) {
-    computerGuess()
-  }
-  player.computerGuessArr.push(guess);
-  let result = player.board.recieveAttack(guess)
-      if (result == true) {
-        let cell = document.getElementById(`de${guess}`);
-        cell.style.backgroundColor = "red";
-        return true
-    } else if (result == false) {
-      let cell = document.getElementById(`de${guess}`);
-        cell.style.backgroundColor = "white";
-        return false
-    }
-}
+  // if (result == true) {
+  //   console.log(cellArr[i]);
+  //     if (cellArr[i].style.backgroundColor !== '#1e293b') {
+  //       cellArr[i].style.backgroundColor = "red";
+  //     }
+  //     computerGuess();
+     
+  // } else if (result == false) {
+  //   cellArr[i].style.backgroundColor = "white";
+  //   computerGuess();
+   
+  // }})}}
+
 
 function setShip(e, ship) {
   if (ship == 'cruiser') {
