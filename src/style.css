@@ -35,27 +35,46 @@ body {
   gap: 15px;
 }
 
+.boardTitle {
+  color:black;
+  background-color: #b9c5bb;
+  font-size: 26px;
+  font-weight: 600;
+  width: 150px;
+  height: 50px;
+}
+
 #attackContainer {
   grid-area: a;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #64748b;
+  border-radius: 10px;
+  border: 2px solid #b9c5bb;
+  box-shadow: 0 0 5px 2px;
+  width: 500px;
+  height: 500px;
+  gap:10px;
 }
 
 #defendContainer {
   grid-area: b;
-}
-
-.shipContainer {
-  display: grid;
-  /* grid-template-columns: 1fr 20fr;
-  grid-template-rows: 1fr 20fr; */
-  grid-template-areas: 
-   "attack attack"
-   "defend e";
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #64748b;
+  border-radius: 10px;
+  border: 2px solid #b9c5bb;
+  box-shadow: 0 0 5px 2px;
 }
 
 .xindex {
   display: flex;
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   background-color: #b9c5bb;
   border: 1px solid black;
   align-items: center;
@@ -69,8 +88,8 @@ body {
 
 .index {
   display: flex;
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   background-color: #b9c5bb;
   border: 1px solid black;
   align-items: center;
@@ -80,26 +99,21 @@ body {
   box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 
 }
-#attackBoard {
-  grid-area: e;
-}
-
-#defendBoard {
-  grid-area: e;
-}
 
 .shipBoard {
   display: grid;
-  width: 462px;
-  height: 462px;
+  width: 407px;
+  height: 407px;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  border: 2px solid black;
+  border: 1px solid black;
+  border-radius: 5px;
+  box-shadow: 0 0 10px 5px;
 }
 
 .cell {
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   background-color: #93c5fd;
   border: 1px solid black;
 }

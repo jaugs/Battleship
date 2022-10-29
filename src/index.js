@@ -1,9 +1,6 @@
  import './style.css';
 
 
-
- // computer guess not already guessed
- //black out ded ships
  //clean up code
  //game over message
  //
