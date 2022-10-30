@@ -157,15 +157,13 @@ class Player {
 function playerStartup(){
   const player1 = new Player
   player1.name = 'player'
-  player1.cruiserArr = ['A1','A2','A3']
-  player1.destroyerArr = ['B1','B2']
-  player1.carrierArr = ['C1','C2','C3','C4','C5']
-  player1.battleshipArr = ['D1','D2','D3','D4']
-  player1.submarineArr = ['E1','E2','E3']
+  player1.cruiserArr = [];
+  player1.destroyerArr = [];
+  player1.carrierArr = [];
+  player1.battleshipArr = [];
+  player1.submarineArr = [];
   let player1Board = player1.createBoard('firstboard');
   player1.turn = true;
-  //setFleet(player1);
- // console.log(player1.cruiserArr);
  player1Board.setCruiser = player1Board.placeShip('Cruiser', 3, player1.cruiserArr)
  player1Board.setDestroyer = player1Board.placeShip('Destroyer', 2, player1.destroyerArr)
  player1Board.setSubmarine = player1Board.placeShip('Submarine', 3, player1.submarineArr)
@@ -272,6 +270,11 @@ function checkShip(shipArr1, shipArr2, shipArr3, shipArr4, shipArr5){
 function setComputerPlayer() {
   const compPlayer = new Player;
   compPlayer.name = 'compPlayer';
+  setComputerShips(compPlayer);
+  return compPlayer
+}
+
+function setComputerShips(compPlayer) {
 
   function randomize(){
   compPlayer.carrierArr = randomPlaceShip(5);
@@ -293,16 +296,13 @@ function setComputerPlayer() {
  compBoard.setBattleship = compBoard.placeShip('Battleship', 4, compPlayer.battleshipArr)
  compBoard.setCarrier = compBoard.placeShip('Carrier', 5, compPlayer.carrierArr)
  console.log(compBoard)
- return compPlayer
 }
 
 
 let player = playerStartup();
 let compPlayer = setComputerPlayer();
  console.log(player)
-//console.log(randomPlaceShip(5));
 setFleet();
-//console.log(player)
 
 function randomPlayerShips() {
   clearShips()
@@ -465,6 +465,12 @@ function setFleet() {
 
  function startGame() {
   console.log(player.board.fleet)
+  for (let i =0; i < player.board.fleet.length; i++) {
+    if (player.board.fleet[i].coord == 0) {
+      alert('Must place all ships to begin');
+      return
+    }
+  }
   let attackBoard = document.getElementById('attackBoard');
   let cellArr = attackBoard.querySelectorAll('.cell');
   for (let i=0; i < cellArr.length; i++) {
@@ -601,7 +607,6 @@ function displayFleet(arr) {
 }
 
 function checkValues(arr) {
-  //let capArr = []
   let reLetter = /[ABCDEFGHIJ]/
   let reNumber = /[0123456789]/
   for (let i=0; i < arr.length; i++) {
@@ -620,7 +625,6 @@ function checkValues(arr) {
 function generateDisplayBoard(attack, num) {
   const shipBoard = document.getElementById(`${attack}Board`);
   let arr = ['','A','B','C','D','E','F','G','H','I','J']
-  //console.log(container);
   for (let k=0; k<11; k++) { 
     let xAxisCell = document.createElement('div');
     xAxisCell.setAttribute('class', 'xindex');
@@ -628,7 +632,6 @@ function generateDisplayBoard(attack, num) {
     shipBoard.appendChild(xAxisCell);
   }
   for (let i=0; i<10; i++) {
-   
     let indexCell = document.createElement('div');
     indexCell.setAttribute('class', 'index');
     indexCell.setAttribute('id', `index${i}`);

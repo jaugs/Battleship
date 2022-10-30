@@ -5,8 +5,7 @@ body {
 
 .header {
   background-color: #374151;
-  height: 60px;
-  color: #f8fafc;
+  height: 70px;
   font-size: 35px;
   font-weight: 700;
   display: flex;
@@ -14,6 +13,26 @@ body {
   align-items: center;
   border-bottom: 2px solid #b9c5bb;
   box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  
+}
+
+.startBanner {
+  color: #1e293b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #b9c5bb;
+  width: 400px;
+  height: 55px;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  border: 1px solid black;
+  border-radius: 10px;
+  gap: 20px;
+}
+
+#start {
+  height: 40px;
+  width: 100px;
 }
 
 #container {
@@ -31,17 +50,23 @@ body {
   display:flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 15px;
 }
 
 .boardTitle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color:black;
   background-color: #b9c5bb;
   font-size: 26px;
   font-weight: 600;
-  width: 150px;
-  height: 50px;
+  width: 175px;
+  height: 40px;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  border: 1px solid black;
+  border-radius: 10px;
 }
 
 #attackContainer {
@@ -54,9 +79,9 @@ body {
   border-radius: 10px;
   border: 2px solid #b9c5bb;
   box-shadow: 0 0 5px 2px;
-  width: 500px;
-  height: 500px;
-  gap:10px;
+  width: 490px;
+  height: 490px;
+  gap:15px;
 }
 
 #defendContainer {
@@ -69,6 +94,9 @@ body {
   border-radius: 10px;
   border: 2px solid #b9c5bb;
   box-shadow: 0 0 5px 2px;
+  width: 490px;
+  height: 490px;
+  gap:15px;
 }
 
 .xindex {
@@ -82,8 +110,6 @@ body {
   font-size: 25px;
   font-weight: 700;
   box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
-
-  
 }
 
 .index {
@@ -97,7 +123,6 @@ body {
   font-size: 25px;
   font-weight: 700;
   box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
-
 }
 
 .shipBoard {
@@ -118,13 +143,17 @@ body {
   border: 1px solid black;
 }
 
+.cell:hover {
+  background-color: #3b82f6;
+}
+
 .ship {
   width: 300px;
   display:flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  gap: 5px;
+  gap: 10px;
   border-radius: 10px;
   background-color: #b9c5bb;
   font-size: 22px;
@@ -139,11 +168,12 @@ body {
 }
 
 #randomShip{
-padding: 10px;
+height: 50px;
 }
 
 .confirm {
-  border-radius: 6px;
+  width: 150px;
+  border-radius: 10px;
   padding: 5px;
   background-color: #475569;
   color:#f8fafc;
@@ -160,8 +190,9 @@ padding: 10px;
 }
 
 .coordInput {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
 
 }
