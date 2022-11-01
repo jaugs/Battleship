@@ -1,10 +1,5 @@
  import './style.css';
 
-
- //clean up code
- //game over message
- //
-
 class Ship {
   constructor(name, length, hits) {
     this.name = name;
@@ -22,11 +17,9 @@ class Ship {
     }
      return false
   }
-
   numberHits() {
     this.hits = this.hits + 1    
   }
- 
 }
 
 
@@ -44,38 +37,28 @@ class Gameboard {
                          'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'H7', 'H8', 'H9', 'H0',
                          'I1', 'I2', 'I3', 'I4', 'I5', 'I6', 'I7', 'I8', 'I9', 'I0',
                          'J1', 'J2', 'J3', 'J4', 'J5', 'J6', 'J7', 'J8', 'J9', 'J0'];
-    }
+      }
 
     get getDestroyer() {
-      return this.destroyer;
-    }
+      return this.destroyer;}
     set setDestroyer(ship) {
-      this.destroyer = ship
-    }
+      this.destroyer = ship}
     get getCruiser() {
-      return this.cruiser;
-    }
+      return this.cruiser;}
     set setCruiser(ship) {
-      this.cruiser = ship
-    } 
+      this.cruiser = ship} 
     get getSubmarine() {
-      return this.submarine;
-    }
+      return this.submarine;}
     set setSubmarine(ship) {
-      this.submarine = ship
-    } 
+      this.submarine = ship} 
     get getBattleship() {
-      return this.battleship;
-    }
+      return this.battleship;}
     set setBattleship(ship) {
-      this.battleship = ship
-    }
+      this.battleship = ship}
     get getCarrier() {
-      return this.carrier;
-    }
+      return this.carrier;}
     set setCarrier(ship) {
-      this.carrier = ship
-    }
+      this.carrier = ship}
 
     placeShip(name, length, coord){ 
      let ship =  new Ship;
@@ -105,7 +88,7 @@ class Gameboard {
             displaySunk(this);
             let allSunk = this.allSunk()
             if (allSunk == true) {
-              gameOver()
+              gameOver(this)
             }
           }
           return true
@@ -128,8 +111,7 @@ class Gameboard {
           return false
         }
       } return true
-        }
-    
+    }
 }
 
 class Player {
@@ -150,8 +132,6 @@ class Player {
   this.board = newBoard;
   return newBoard;
  }
-
-
 }
 
 function playerStartup(){
@@ -172,9 +152,19 @@ function playerStartup(){
  return player1
 }
 
-async function gameOver(){
+async function gameOver(player){
   setTimeout(() => {
-  prompt('game over');}, "900")
+    let header = document.querySelector('.header');
+    let attackContainer = document.getElementById('attackContainer');
+    attackContainer.setAttribute('class', 'gameOver')
+    let gameoverText = document.createElement('div')
+    gameoverText.setAttribute('class', 'gameText')
+    header.appendChild(gameoverText);
+    if (player.name == 'compBoard') {
+      gameoverText.innerText = 'You Sunk Thier Battleship! You Win!'
+    } else if (player.name == 'firstboard') {
+      gameoverText.innerText = 'They Sunk Your Battleship! You Lose!'
+    }}, "900")
   
 }
 
@@ -214,7 +204,6 @@ function randomPlaceShip(size){
     } else if (size == 5) {
     arr.push((firstLetter+number), (secondLetter+number), (thirdLetter+number), (forthLetter+number), (fifthLetter+number));
     }
-    //console.log(arr);
     return arr
   } else {
     let arr = []
@@ -237,9 +226,7 @@ function randomPlaceShip(size){
     } else if (size == 5) {
       arr.push((letter+firstNumber), (letter+secondNumber), (letter+thirdNumber), (letter+forthNumber), (letter+fifthNumber));    
     }
-   // console.log(arr);
-    return arr
-  }
+    return arr}
 }
 
 function checkShip(shipArr1, shipArr2, shipArr3, shipArr4, shipArr5){
@@ -264,7 +251,6 @@ function checkShip(shipArr1, shipArr2, shipArr3, shipArr4, shipArr5){
   } else {
     return false
   }
-  
 }
 
 function setComputerPlayer() {
@@ -295,14 +281,7 @@ function setComputerShips(compPlayer) {
  compBoard.setSubmarine = compBoard.placeShip('Submarine', 3, compPlayer.submarineArr)
  compBoard.setBattleship = compBoard.placeShip('Battleship', 4, compPlayer.battleshipArr)
  compBoard.setCarrier = compBoard.placeShip('Carrier', 5, compPlayer.carrierArr)
- console.log(compBoard)
 }
-
-
-let player = playerStartup();
-let compPlayer = setComputerPlayer();
- console.log(player)
-setFleet();
 
 function randomPlayerShips() {
   clearShips()
@@ -323,8 +302,25 @@ function randomPlayerShips() {
     displayFleet(player.board.cruiser.coord);
     displayFleet(player.board.submarine.coord);
     displayFleet(player.board.destroyer.coord);
-    console.log(player);
 }
+
+function clearComputerShips(){
+  compPlayer.battleshipArr = []
+  compPlayer.carrierArr = []
+  compPlayer.cruiserArr = []
+  compPlayer.submarineArr = []
+  compPlayer.destroyerArr = []
+  compPlayer.board.carrier.coord = []
+  compPlayer.board.battleship.coord = []
+  compPlayer.board.cruiser.coord = []
+  compPlayer.board.submarine.coord = []
+  compPlayer.board.destroyer.coord = []
+  player.computerGuessArr = []
+  let attackBoard = document.getElementById('attackBoard');
+   let cellArr = attackBoard.querySelectorAll('.cell');
+   for (let i=0; i < cellArr.length; i++) {
+   cellArr[i].style.backgroundColor = "#93c5fd";
+}}
 
 function clearShips() {
    player.battleshipArr = []
@@ -371,18 +367,8 @@ function computerGuess() {
   }
   player.computerGuessArr.push(guess);
   let result = player.board.recieveAttack(guess)
-  //     if (result == true) {
-  //       let cell = document.getElementById(`de${guess}`);
-  //       cell.style.backgroundColor = "red";
-  //       return true
-  //   } else if (result == false) {
-  //     let cell = document.getElementById(`de${guess}`);
-  //       cell.style.backgroundColor = "white";
-  //       return false
-  //   }
 }
    
-
 function displaySunk(board) {
   let boardType
   if (board.name == "compBoard") {
@@ -464,36 +450,52 @@ function setFleet() {
 }
 
  function startGame() {
-  console.log(player.board.fleet)
+  let attackContainer = document.getElementById('attackContainer')
+  attackContainer.setAttribute('class', 'attackContainer')
+  let gameoverText = document.querySelector('.gameText');
+  if (gameoverText) {
+    gameoverText.remove();
+  }
   for (let i =0; i < player.board.fleet.length; i++) {
     if (player.board.fleet[i].coord == 0) {
       alert('Must place all ships to begin');
       return
     }
   }
+  let startButton = document.getElementById('start')
+  startButton.setAttribute('class', 'gameStart');
+  startButton.innerText = 'Restart';
+  startButton.addEventListener("click", stopGame);
+  console.log(player.board.fleet)
   let attackBoard = document.getElementById('attackBoard');
   let cellArr = attackBoard.querySelectorAll('.cell');
   for (let i=0; i < cellArr.length; i++) {
-    cellArr[i].addEventListener('click', function (e){
-        let cellID = cellArr[i].id
-        let guess = cellID.slice(2)
-        let result = compPlayer.board.recieveAttack(guess)
-        computerGuess()
-    })}}
+    cellArr[i].addEventListener('click', cellClickHandler)
+    }}
 
-  // if (result == true) {
-  //   console.log(cellArr[i]);
-  //     if (cellArr[i].style.backgroundColor !== '#1e293b') {
-  //       cellArr[i].style.backgroundColor = "red";
-  //     }
-  //     computerGuess();
-     
-  // } else if (result == false) {
-  //   cellArr[i].style.backgroundColor = "white";
-  //   computerGuess();
-   
-  // }})}}
+function cellClickHandler() {
+  let cellID = this.id
+  let guess = cellID.slice(2)
+  let result = compPlayer.board.recieveAttack(guess)
+  computerGuess()
+}
 
+
+function stopGame() {
+  clearShips();
+  clearComputerShips();
+  setComputerShips(compPlayer);
+  let startButton = document.getElementById('start');
+  startButton.setAttribute('class', 'confirm');
+  startButton.innerText = 'Start Game';
+  startButton.removeEventListener('click', stopGame)
+  let attackBoard = document.getElementById('attackBoard');
+  let cellArr = attackBoard.querySelectorAll('.cell');
+  for (let i=0; i < cellArr.length; i++) {
+    cellArr[i].removeEventListener('click', cellClickHandler)}
+  startButton.addEventListener("click", startGame);
+
+}
 
 function setShip(e, ship) {
   if (ship == 'cruiser') {
@@ -586,15 +588,12 @@ function setShip(e, ship) {
         coor4Elm.value = ''
         coor5Elm.value = ''
         return null
-      }
-  }
-}
+      }}}
 
 function displayError(ship) {
     let shipEl = document.getElementById(`${ship}Error`)
     shipEl.style.visibility = 'visible'
-    setFleet()
-  
+    setFleet() 
 }
 
 function displayFleet(arr) {
@@ -603,7 +602,6 @@ function displayFleet(arr) {
     let cell = document.getElementById(`de${coord}`);
     cell.style.backgroundColor = "#64748b";
   }
-
 }
 
 function checkValues(arr) {
@@ -617,10 +615,6 @@ function checkValues(arr) {
     }}
     return true
 }
-
-
-
- 
 
 function generateDisplayBoard(attack, num) {
   const shipBoard = document.getElementById(`${attack}Board`);
@@ -680,10 +674,8 @@ function generateDisplayBoard(attack, num) {
   }
 }
 
+let player = playerStartup();
+let compPlayer = setComputerPlayer();
+setFleet();
 generateDisplayBoard('defend', 'de');
 generateDisplayBoard('attack', 'at');
-
-
-
-
-

@@ -9,7 +9,9 @@ body {
   font-size: 35px;
   font-weight: 700;
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  gap: 10px;
   align-items: center;
   border-bottom: 2px solid #b9c5bb;
   box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
@@ -136,6 +138,29 @@ body {
   box-shadow: 0 0 10px 5px;
 }
 
+.gameOver {
+  grid-area: a;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #64748b;
+  border-radius: 10px;
+  border: 2px solid #b9c5bb;
+  box-shadow: 0 0 5px 2px;
+  width: 490px;
+  height: 490px;
+  gap:15px;
+  opacity: .2;
+}
+
+.gameText {
+  color: white;
+  font-size: 32px;
+  font-weight: 700;
+  align-self: center;
+  justify-self: center;
+}
 .cell {
   width: 35px;
   height: 35px;
@@ -171,6 +196,25 @@ body {
 height: 50px;
 }
 
+
+.gameStart {
+  width: 150px;
+  border-radius: 10px;
+  padding: 5px;
+  background-color: #15803d;
+  color:#f8fafc;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+
+.gameStart:hover {
+  background-color: #14532d;
+}
+
+.gameStart:active {
+  transform: translate(0px, 3px);
+  background-color: #a3e635;
+  color: #1e293b;
+}
 .confirm {
   width: 150px;
   border-radius: 10px;
